@@ -32,6 +32,7 @@ const crismon_secondary = Crimson_Pro({
 
 
 export const metadata: Metadata = {
+  icons: { icon: '/favicon.ico', shortcut: '/favicon.ico', apple: '/favicon.png' },
   title: "Acadia - University & Online Course Next js Template",
   description: "Acadia – template is perfect for a variety of educational needs, including e-Learning, Course Schools, Online Schools, Kindergartens, Classic LMS setups, University Status pages, Instructor Portfolios, Language Academies, Gym Coaching, Online Courses, Single Courses, marketplaces, University Classics, Elegant Homepages, Technology-focused Homepages, and more",
 };

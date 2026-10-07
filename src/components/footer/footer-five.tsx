@@ -80,7 +80,7 @@ export default function FooterFive({inner}: IProps) {
                                  <a href="mailto:info@email.com">info@email.com</a>
                               </div>
                               <div className="tp-footer-4-phone">
-                                 <a href="tel:0123456789">+(402) 763 282 46</a>
+                                 <a href="tel:+6285247350467">+62 852-4735-0467</a>
                               </div>
                            </div>
                         </div>

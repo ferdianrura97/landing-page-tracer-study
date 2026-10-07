@@ -1,78 +1,118 @@
 import Link from "next/link";
-import { Email } from "../svg";
+import Image from "next/image";
 
-type IProps = { style_2?: boolean };
+import { Email } from "../svg";
+import FooterSocial from "./footer-social";
+import logo from "@/assets/img/logo/logo-red.png";
+import logo_black from "@/assets/img/logo/logo-black-2.png";
+import { footerLinks } from "@/data/footer-links";
+
+// prop type 
+type IProps = {
+  style_2?: boolean
+}
 
 export default function FooterOne({ style_2 = false }: IProps) {
   return (
     <footer>
-      <div className="tp-footer-main grey-bg pt-80 pb-55">
+      <div className={`tp-footer-main ${style_2 ? '' : 'grey-bg'} pt-80 pb-55`}>
         <div className="container">
           <div className="row">
-            <div className="col-xl-5 col-lg-5 col-md-6 mb-30">
-              <div className="tp-footer-widget tp-footer-col-1">
-                <h4 className="tp-footer-widget-title mb-20" style={{ color: '#1E856C' }}>
-                  Tracer Study Kalimantan Timur
-                </h4>
-                <div className="tp-footer-widget-content mb-20">
-                  <p style={{ lineHeight: 1.6, color: '#636b78' }}>
-                    Sistem Penelusuran Tamatan Resmi jenjang SMA &amp; SMK di bawah naungan Dinas Pendidikan dan Kebudayaan Provinsi Kalimantan Timur untuk memetakan serapan lulusan ke dunia kerja, wirausaha, dan perguruan tinggi.
+            <div className="col-xl-4 col-lg-3 col-sm-6">
+              <div className={`tp-footer-widget ${style_2 ? 'tp-footer-5-col-1' : 'tp-footer-col-1'} mb-30`}>
+                <div className="tp-footer-widget-logo mb-20 tp-header-logo">
+                  <Link href="/">
+                    <Image 
+                       src={style_2 ? logo_black : logo} 
+                       alt="logo" priority 
+                       style={{ height: "auto" }} />
+                  </Link>
+                </div>
+                <div className="tp-footer-widget-content">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur <br /> adipisc ing
+                    elit.
                   </p>
                 </div>
                 <div className="tp-footer-contact">
-                  <span>Kontak Informasi / BKK:</span>
-                  <a href="tel:0541743580">(0541) 743580</a>
+                  <span>Got Questions? Call us</span>
+                  <a href="tel:012345678">+670 413 90 762</a>
                 </div>
-                <div className="tp-footer-contact-mail mt-2">
-                  <a href="mailto:disdikbud@kaltimprov.go.id">
-                    <span><Email /></span>
-                    disdikbud@kaltimprov.go.id
+                <div className="tp-footer-contact-mail">
+                  <a href="mailto:acadia@gmail.com">
+                    <span>
+                      <Email />
+                    </span>
+                    acadia@gmail.com
                   </a>
                 </div>
               </div>
             </div>
-
-            <div className="col-xl-3 col-lg-3 col-md-6 mb-30">
-              <div className="tp-footer-widget tp-footer-col-2">
-                <h4 className="tp-footer-widget-title mb-20">Tautan Penting</h4>
+            <div className="col-xl-2 col-lg-3 col-sm-6">
+              <div className={`tp-footer-widget ${style_2 ? 'tp-footer-5-col-2' : 'tp-footer-col-2'} mb-30`}>
+                <h4 className="tp-footer-widget-title mb-20">About</h4>
                 <div className="tp-footer-widget-link">
                   <ul>
-                    <li><Link href="/">Beranda Utama</Link></li>
-                    <li><Link href="/tracer">Formulir Kuesioner</Link></li>
-                    <li><Link href="/#statistik">Statistik Serapan</Link></li>
-                    <li><Link href="/#alur">Alur Pengisian</Link></li>
-                    <li><Link href="/#faq">Tanya &amp; Jawab (FAQ)</Link></li>
-                    <li><a href="http://localhost:3005/admin/login" target="_blank" rel="noreferrer">Portal Admin Disdik</a></li>
+                    {footerLinks.link_one.map((link) => (
+                      <li key={link.id}>
+                        <Link href={link.link}>{link.title}</Link>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
             </div>
-
-            <div className="col-xl-4 col-lg-4 col-md-12 mb-30">
-              <div className="tp-footer-widget tp-footer-col-3">
-                <h4 className="tp-footer-widget-title mb-20">Kantor Pelayanan</h4>
-                <p style={{ color: '#636b78', lineHeight: 1.6 }}>
-                  <strong>Dinas Pendidikan &amp; Kebudayaan Prov. Kaltim</strong><br />
-                  Jl. Basuki Rahmat No. 5, Pelabuhan, Kec. Samarinda Kota, Kota Samarinda, Kalimantan Timur 75112
-                </p>
-                <div className="mt-3">
-                  <span className="badge bg-success" style={{ padding: '8px 12px', fontSize: '12px' }}>
-                    Wilayah: 10 Kabupaten &amp; Kota Se-Kaltim
-                  </span>
+            <div className="col-xl-2 col-lg-2 col-sm-4">
+              <div className={`tp-footer-widget ${style_2 ? 'tp-footer-5-col-3' : 'tp-footer-col-3'} mb-30`}>
+                <h4 className="tp-footer-widget-title mb-20">Quick links</h4>
+                <div className="tp-footer-widget-link">
+                  <ul>
+                    {footerLinks.link_two.map((link) => (
+                      <li key={link.id}>
+                        <Link href={link.link}>{link.title}</Link>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </div>
+            <div className="col-xl-4 col-lg-4 col-sm-8">
+              <div className={`p-footer-widget ${style_2 ? 'tp-footer-5-col-4' : 'tp-footer-col-4'} mb-30`}>
+                <h4 className="tp-footer-widget-title mb-20">Our Newsletter</h4>
+                <div className="tp-footer-newsletter-wrap">
+                  <p>
+                    Enter your email and we will send you <br /> more
+                    information
+                  </p>
+                  <form action="#">
+                    <div className="tp-footer-newsletter-wrapper mb-30">
+                      <div className={`tp-footer-newsletter-input ${style_2 ? 'tp-footer-5-newsletter-input' : ''}`}>
+                        <input type="email" placeholder="Your email" />
+                      </div>
+                      <div className={`${style_2 ? 'tp-footer-5-newsletter-submit' : 'tp-footer-newsletter-submit'}`}>
+                        <button className={`${style_2 ? 'tp-btn-4' : 'tp-btn'}`}>Subscribe</button>
+                      </div>
+                    </div>
+                  </form>
+                  {/* footer social */}
+                  <div className="tp-footer-newsletter-social">
+                    <FooterSocial />
+                  </div>
+                  {/* footer social */}
+                </div>
+              </div>
+            </div> 
           </div>
         </div>
       </div>
-
-      <div className="tp-footer-bottom">
+      <div className={`${style_2 ? 'tp-footer-5-bottom' : 'tp-footer-bottom'}`}>
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
               <div className="tp-footer-copyright text-center">
                 <span>
-                  © {new Date().getFullYear()} Pemerintah Provinsi Kalimantan Timur. Hak Cipta Dilindungi Undang-Undang.
+                  © {new Date().getFullYear()} <a href="#">Acadia</a>. All
+                  rights reserved.
                 </span>
               </div>
             </div>
