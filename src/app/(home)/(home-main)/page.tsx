@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 import HeroAreaOne from '@/components/hero-area/hero-area-one';
 import ServiceOne from '@/components/service/service-one';
-import AboutOne from '@/components/about/about-one';
+import AboutTracerStudy from '@/components/about/about-tracer-study';
+import AboutIknNusantara from '@/components/about/about-ikn-nusantara';
 import CounterOne from '@/components/counter/counter-one';
 import ProgramArea from '@/components/program/program-area';
 import EventArea from '@/components/event/event-area';
@@ -25,9 +26,11 @@ export default function HomePage() {
       <ServiceOne/>
       {/* service area end */}
 
-      {/* about area start */}
-      <AboutOne/>
-      {/* about area end */}
+      {/* section 1: tentang tracer study kaltim (foto kiri, teks kanan) */}
+      <AboutTracerStudy/>
+
+      {/* section 2: sdm unggul kaltim & ikn (teks kiri, foto kanan) */}
+      <AboutIknNusantara/>
 
       {/* counter area start */}
       <CounterOne/>

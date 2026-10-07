@@ -9,31 +9,35 @@ import ser_icon_3 from "@/assets/img/icon/service/service-icon-3.svg";
 import ser_icon_4 from "@/assets/img/icon/service/service-icon-4.svg";
 import ser_shape from '@/assets/img/shape/service/services-shape-1.png';
 
-// service data
+// service data: 4 Cabang Status Tamatan
 const service_data = [
   {
     id: 1,
     icon: ser_icon_1,
-    title: "Why study at <br/> Acadia?",
-    text: "We have students coming from different backgrounds,cultures, & nationalities as well.",
+    title: "Alumni <br/> Bekerja",
+    text: "Penelusuran masa tunggu kerja, profil perusahaan/instansi, rentang penghasilan, dan keselarasan kejuruan.",
+    link: "/tracer",
   },
   {
     id: 2,
     icon: ser_icon_2,
-    title: "Certification <br/> Guarantee",
-    text: "We have students coming from different backgrounds,cultures, & nationalities as well.",
+    title: "Melanjutkan <br/> Kuliah",
+    text: "Penelusuran perguruan tinggi tujuan, program studi pilihan, jenjang D3/D4/S1, dan jalur masuk beasiswa.",
+    link: "/tracer",
   },
   {
     id: 3,
     icon: ser_icon_3,
-    title: "Graduate <br/> Admissions",
-    text: "We have students coming from different backgrounds,cultures, & nationalities as well.",
+    title: "Alumni <br/> Wirausaha",
+    text: "Pemetaan unit usaha rintisan, legalitas NIB/badan hukum, omzet bulanan, dan serapan tenaga kerja mandiri.",
+    link: "/tracer",
   },
   {
     id: 4,
     icon: ser_icon_4,
-    title: "Scholarships <br/> & fees",
-    text: "We have students coming from different backgrounds,cultures, & nationalities as well.",
+    title: "Mencari <br/> Peluang Kerja",
+    text: "Pemetaan kendala lulusan untuk penyaluran pelatihan kompetensi dan sertifikasi keahlian oleh Disdikbud.",
+    link: "/tracer",
   },
 ];
 
@@ -59,12 +63,12 @@ export default function ServiceOne() {
                   </div>
                   <h4 className="tp-service-title">
                     <Link
-                      href="/university-about"
+                      href={item.link}
                       dangerouslySetInnerHTML={{ __html: item.title }}
                     ></Link>
                   </h4>
                   <div className="tp-service-btn">
-                    <Link href="/university-about">
+                    <Link href={item.link}>
                       <span>
                         <RightArrowTwo />
                       </span>
@@ -82,9 +86,9 @@ export default function ServiceOne() {
           <div className="col-lg-12">
             <div className="tp-service-all text-center">
               <span>
-                Trusted by the worlds{" "}
-                <Link href="/university-about">
-                  Best University <RightSmArrowTwo />
+                Menghubungkan lulusan SMA &amp; SMK dengan kemajuan masa depan{" "}
+                <Link href="/tracer">
+                  Kalimantan Timur <RightSmArrowTwo />
                 </Link>
               </span>
             </div>
