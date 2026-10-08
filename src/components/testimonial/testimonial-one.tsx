@@ -26,7 +26,7 @@ export default function TestimonialOne() {
             <div className="tp-video-wrap d-flex">
               <div className="tp-video-icon text-center">
                 {/* Video area */}
-                <button onClick={() => playVideo("go7QYaQR494")} className="video-border-animation popup-video">
+                <button onClick={() => playVideo("go7QYaQR494")} className="video-border-animation popup-video" aria-label="Putar video profil">
                   <span>
                     <svg
                       width="16"
@@ -43,7 +43,7 @@ export default function TestimonialOne() {
                   </span>
                 </button>
                 {/* Video area */}
-                <p>Video Tour in logo</p>
+                <p>Profil Pendidikan Vokasi Kaltim</p>
               </div>
             </div>
           </div>
@@ -53,8 +53,8 @@ export default function TestimonialOne() {
               data-wow-delay=".3s"
             >
               <div className="tp-section mb-40">
-                <h5 className="tp-section-subtitle">Testimonial</h5>
-                <h3 className="tp-section-title">What Students Says</h3>
+                <h5 className="tp-section-subtitle">Suara Alumni Kaltim</h5>
+                <h3 className="tp-section-title">Cerita Sukses Alumni Tamatan</h3>
               </div>
               <div className="tp-testimonial-shape">
                 <div className="tp-testimonial-shape-1">

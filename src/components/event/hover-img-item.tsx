@@ -6,27 +6,46 @@ import Link from "next/link";
 type IProps = {
   title: string;
   img: string;
+  link?: string;
 };
 
-export default function HoverImgItem({ img, title }: IProps) {
-    const { handleMouseMove } = useHoverReveal();
-  
+export default function HoverImgItem({ img, title, link = "/tracer" }: IProps) {
+  const { handleMouseMove } = useHoverReveal();
+  const isExternal = link.startsWith("http");
+
+  if (isExternal) {
     return (
-      <>
-        <Link
-          className="tp-img-reveal tp-img-reveal-item"
-          href="/event"
-          data-img="/assets/img/event/event-thumb-1.jpg"
-          data-fx="1"
-          onMouseMove={handleMouseMove}
-        >
-          {title}
-  
-          <div
-            className="tp-hover-reveal-bg"
-            style={{ backgroundImage: `url(${img})` }}
-          ></div>
-        </Link>
-      </>
+      <a
+        className="tp-img-reveal tp-img-reveal-item"
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-img={img}
+        data-fx="1"
+        onMouseMove={handleMouseMove}
+      >
+        {title}
+        <div
+          className="tp-hover-reveal-bg"
+          style={{ backgroundImage: `url(${img})` }}
+        ></div>
+      </a>
     );
   }
+
+  return (
+    <Link
+      className="tp-img-reveal tp-img-reveal-item"
+      href={link}
+      data-img={img}
+      data-fx="1"
+      onMouseMove={handleMouseMove}
+    >
+      {title}
+      <div
+        className="tp-hover-reveal-bg"
+        style={{ backgroundImage: `url(${img})` }}
+      ></div>
+    </Link>
+  );
+}

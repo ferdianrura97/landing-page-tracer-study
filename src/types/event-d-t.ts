@@ -9,4 +9,5 @@ export type IEventDT = {
   time: string;
   location: string;
   image: string;
+  link?: string;
 };

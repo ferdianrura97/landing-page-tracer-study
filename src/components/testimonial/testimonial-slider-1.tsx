@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { SwiperOptions } from "swiper/types";
 import { NextArrow, PrevArrow } from "../svg";
@@ -11,22 +11,24 @@ const swiper_options: SwiperOptions = {
   slidesPerView: 1,
   spaceBetween: 10,
   loop: true,
+  speed: 800,
+  autoplay: {
+    delay: 1500,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: true,
+  },
   navigation: {
     nextEl: ".tp-testimonial-next",
     prevEl: ".tp-testimonial-prev",
   },
-  autoplay: {
-    delay: 2000,
-  },
 };
-
 
 export default function TestimonialSliderOne() {
   return (
     <>
       <Swiper
         {...swiper_options}
-        modules={[Navigation]}
+        modules={[Navigation, Autoplay]}
         className="swiper tp-testimonial-active"
       >
         {testimonial_one_data.map((item) => (
@@ -37,9 +39,10 @@ export default function TestimonialSliderOne() {
             <div className="tp-testimonial-avatar">
               <Image
                 src={item.img}
-                alt="testimonial-avatar"
+                alt={item.name}
                 width={60}
                 height={60}
+                style={{ objectFit: "cover", borderRadius: "50%" }}
               />
             </div>
             <div className="tp-testimonial-content">
