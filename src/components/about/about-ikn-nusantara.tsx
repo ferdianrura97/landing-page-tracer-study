@@ -96,7 +96,7 @@ export default function AboutIknNusantara() {
                             <h3 className="tp-about-exprience-count">
                                 <CounterItem min={0} max={100}/>
                             </h3>
-                            <p>% Partisipasi <br/> Menuju IKN</p>
+                            <p>% Partisipasi <br/> Menuju IKN Sukses</p>
                         </div>
                     </div>
                     </div>
