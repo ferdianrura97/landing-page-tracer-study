@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import ProgramSlider from "./slider/program-slider";
 import shape_line from "@/assets/img/unlerline/program-1-svg-1.svg";
@@ -12,10 +11,13 @@ export default function ProgramArea() {
           <div className="col-lg-8">
             <div className="tp-program-wrap wow fadeInUp" data-wow-delay=".3s">
               <div className="tp-section text-center mb-55">
+                <h5 className="tp-section-subtitle mb-15" style={{ color: "var(--tp-theme-primary)", fontWeight: 600 }}>
+                  MEMBANGUN KALIMANTAN TIMUR UNTUK SEMUA
+                </h5>
                 <h3 className="tp-section-title">
                   <span>
                     {" "}
-                    Academic{" "}
+                    Program Prioritas{" "}
                     <Image
                       className="tp-underline-shape-2 wow bounceIn"
                       data-wow-duration="1.5s"
@@ -24,9 +26,12 @@ export default function ProgramArea() {
                       alt="shape-line"
                     />
                   </span>{" "}
-                  Programs
+                  Pemprov Kaltim
                 </h3>
-                <p>Focusing on high education with the best quality.</p>
+                <p>
+                  Kebijakan strategis Pemerintah Provinsi Kalimantan Timur dalam penjaminan biaya pendidikan,
+                  penguatan daya saing tenaga kerja muda, dan pembangunan masa depan hijau yang berkelanjutan.
+                </p>
               </div>
             </div>
           </div>
@@ -41,13 +46,18 @@ export default function ProgramArea() {
           <div className="col-12">
             <div className="tp-program-all text-center">
               <p>
-                Explore the most appropriate promgram.​​
-                <Link href="/university-program">
-                  View all Programs{" "}
+                Data Tracer Study Anda menjadi rujukan penting evaluasi dan penyaluran program daerah.​​{" "}
+                <a
+                  href="https://kaltimprov.go.id/program-prioritas"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="fw-semibold text-primary"
+                >
+                  Lihat Seluruh Program Prioritas{" "}
                   <span>
                     <RightSmArrowThree />
                   </span>
-                </Link>
+                </a>
               </p>
             </div>
           </div>

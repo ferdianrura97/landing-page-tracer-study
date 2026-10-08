@@ -7,4 +7,5 @@ export type IProgramDT = {
   age?: string;
   time?: string;
   size?: string;
+  link?: string;
 };

@@ -4,34 +4,38 @@ export const university_classic_program_data: IProgramDT[] = [
   {
     id: 1,
     img: "/assets/img/program/program-thumb-1.jpg",
-    title: "Major in Economics",
+    title: "GRATISPOL Pendidikan (SMA/SMK s.d. S3)",
     description:
-      "The Economics Major can be combined <br/> with a Major in another subject in order Double Major Degree.",
-    category: "Economics",
+      "Jaminan bantuan biaya pendidikan bebas biaya hingga jenjang sarjana melalui beasiswa tuntas daerah bagi putra-putri Kalimantan Timur.",
+    category: "Pendidikan & Beasiswa",
+    link: "https://kaltimprov.go.id/program-prioritas",
   },
   {
     id: 2,
     img: "/assets/img/program/program-thumb-2.jpg",
-    title: "Business Media",
+    title: "JOSPOL Ekonomi Kreatif & Digital UMKM",
     description:
-      "The Economics Major can be combined <br/> with a Major in another subject in order Double Major Degree.",
-    category: "Business & Administration",
+      "Akselerasi wirausaha muda dan pemberdayaan UMKM lokal melalui ekosistem digital, pendampingan NIB, dan akses inkubasi bisnis mandiri.",
+    category: "Ekonomi Inklusif & UMKM",
+    link: "https://kaltimprov.go.id/program-prioritas",
   },
   {
     id: 3,
     img: "/assets/img/program/program-thumb-3.jpg",
-    title: "Major in Economics",
+    title: "Hilirisasi Industri & Inovasi Vokasi",
     description:
-      "The Economics Major can be combined <br/> with a Major in another subject in order Double Major Degree.",
-    category: "Sciences",
+      "Penyelarasan kejuruan dengan hilirisasi industri manufaktur, kelistrikan, dan kesiapan tenaga kerja terampil di era Ibu Kota Nusantara (IKN).",
+    category: "Vokasi Industri & IKN",
+    link: "https://kaltimprov.go.id/program-prioritas",
   },
   {
     id: 4,
     img: "/assets/img/program/program-thumb-2.jpg",
-    title: "Computer Science",
+    title: "KALTIM GREEN (Pembangunan Hijau)",
     description:
-      "The Economics Major can be combined <br/> with a Major in another subject in order Double Major Degree.",
-    category: "Sciences",
+      "Aksi perlindungan ekologi Heart of Borneo dan transformasi ekonomi hijau yang membuka lapangan kerja ramah lingkungan bagi generasi penerus.",
+    category: "Pembangunan Berkelanjutan",
+    link: "https://kaltimprov.go.id/kaltim-green",
   },
 ];
 
