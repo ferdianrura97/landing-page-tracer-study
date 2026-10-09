@@ -13,11 +13,13 @@ export default function BlogOne() {
               data-wow-delay=".2s"
             >
               <div className="tp-section">
-                <h5 className="tp-section-subtitle">BLOG UPDATES</h5>
+                <h5 className="tp-section-subtitle" style={{ color: "var(--tp-theme-primary)", fontWeight: 600 }}>
+                  KABAR &amp; INFORMASI TERKINI
+                </h5>
                 <h3 className="tp-section-2-title">
-                  Lates News &
+                  Berita &amp; Publikasi{" "}
                   <span>
-                    Articles.
+                    Tracer Study Kaltim.
                     <ShapeLineTwo />
                   </span>
                 </h3>

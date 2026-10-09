@@ -9,7 +9,7 @@ import EventArea from '@/components/event/event-area';
 import TestimonialOne from '@/components/testimonial/testimonial-one';
 import BlogOne from '@/components/blog/blog-one';
 import InstagramArea from '@/components/instagram/instagram-area';
-import CtaOne from '@/components/cta/cta-one';
+import CtaTracerStudy from '@/components/cta/cta-tracer-study';
 
 export const metadata: Metadata = {
   title: "Home University Classic - Acadia",
@@ -57,7 +57,7 @@ export default function HomePage() {
       {/* instagram area end */}
 
       {/* cta area start */}
-      <CtaOne/>
+      <CtaTracerStudy/>
       {/* cta area end */}
     </main>
   )

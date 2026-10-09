@@ -1,25 +1,27 @@
 import { IBlogDT } from "@/types/blog-d-t";
 
-export const university_blogs:IBlogDT[] = [
+export const university_blogs: IBlogDT[] = [
   {
     id: 1,
     img: "/assets/img/blog/blog-thumb-1.jpg",
-    tag: "Video & Tips",
-    title: "The Importance Of Intrinsic Motivation for Students",
-    author: "Owen Christ",
+    tag: "Kebijakan & Evaluasi",
+    title: "Disdikbud Kaltim Luncurkan Survei Tracer Study Serentak untuk Lulusan SMA & SMK Se-Kaltim",
+    author: "Humas Disdikbud Kaltim",
     author_img: "/assets/img/blog/blog-stories/blog-stories-user-1.jpg",
-    date: "Jan 25, 2021",
-    desc:'We are committed to changing the way of mobile UX. We believe that mobile UX has the make a real power.',
+    date: "02 Okt 2026",
+    desc: "Program penelusuran tamatan resmi berbasis NISN digital guna memetakan keterserapan kerja, wirausaha, dan lanjut studi.",
+    link: "https://web.disdikbud.kaltimprov.go.id/",
   },
   {
     id: 2,
     img: "/assets/img/blog/blog-thumb-2.jpg",
-    tag: "Video & Tips",
-    title: "Those Other College Expenses You Aren't Thinking About",
-    author: "Owen Christ",
+    tag: "Peluang Karir & IKN",
+    title: "Peluang dan Kebutuhan Tenaga Kerja Terampil Vokasi Menyambut Pertumbuhan Wilayah IKN",
+    author: "Bidang SMK Disdikbud",
     author_img: "/assets/img/blog/blog-stories/blog-stories-user-1.jpg",
-    date: "Jan 25, 2021",
-    desc:'We are committed to changing the way of mobile UX. We believe that mobile UX has the make a real power.',
+    date: "25 Sep 2026",
+    desc: "Penyelarasan kurikulum kejuruan dengan industri manufaktur, kelistrikan, dan konstruksi di kawasan Ibu Kota Nusantara.",
+    link: "https://web.disdikbud.kaltimprov.go.id/",
   }
 ];
 
