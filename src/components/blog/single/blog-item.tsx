@@ -14,45 +14,95 @@ export default function BlogItem({ blog }: IProps) {
     <div
       className="tp-blog-item text-center mb-40 wow fadeInLeft"
       data-wow-delay=".4s"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "calc(100% - 40px)",
+      }}
     >
-      <div className="tp-blog-thumb fix">
-        <Link href={targetUrl}>
+      <div
+        className="tp-blog-thumb fix"
+        style={{
+          height: "230px",
+          width: "100%",
+          overflow: "hidden",
+          borderRadius: "12px",
+          marginBottom: "24px",
+          backgroundColor: "#f0f2f5",
+          flexShrink: 0,
+        }}
+      >
+        <Link href={targetUrl} style={{ display: "block", width: "100%", height: "100%" }}>
           <Image
             src={blog.img}
             alt={blog.title}
             width={559}
             height={350}
-            style={{ height: "auto" }}
+            unoptimized={typeof blog.img === "string" && blog.img.startsWith("http")}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
           />
         </Link>
       </div>
-      <div className="tp-blog-content">
-        <span className="tp-blog-tag">{blog.tag}</span>
-        <h4 className="tp-blog-title" style={{ fontSize: "20px", lineHeight: 1.4, minHeight: "56px" }}>
-          <Link href={targetUrl}>{blog.title}</Link>
-        </h4>
-        <div className="tp-blog-meta">
-          <span>
-            <span>
-              <AuthorSvg />
-              {blog.author}
-            </span>
+
+      <div
+        className="tp-blog-content"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          flexGrow: 1,
+          justifyContent: "space-between",
+        }}
+      >
+        <div>
+          <span className="tp-blog-tag" style={{ fontSize: "14px", fontWeight: 600 }}>
+            {blog.tag}
           </span>
-          <span>
-            <span>
-              <ClockSvg />
-              {blog.date}
-            </span>
-          </span>
+          <h4
+            className="tp-blog-title"
+            style={{
+              fontSize: "19px",
+              lineHeight: 1.4,
+              minHeight: "54px",
+              marginBottom: "14px",
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
+          >
+            <Link href={targetUrl}>{blog.title}</Link>
+          </h4>
         </div>
-        <div className="tp-blog-btn">
-          <Link href={targetUrl} aria-label="Baca berita">
-            <span className="tp-blog-btn-bg blog-btn-bg"></span>
-            <span className="tp-blog-btn-border blog-btn-border"></span>
-            <span className="icon">
-              <NextArrow />
+
+        <div>
+          <div className="tp-blog-meta mb-2">
+            <span>
+              <span>
+                <AuthorSvg />
+                {blog.author}
+              </span>
             </span>
-          </Link>
+            <span>
+              <span>
+                <ClockSvg />
+                {blog.date}
+              </span>
+            </span>
+          </div>
+
+          <div className="tp-blog-btn">
+            <Link href={targetUrl} aria-label="Baca berita">
+              <span className="tp-blog-btn-bg blog-btn-bg"></span>
+              <span className="tp-blog-btn-border blog-btn-border"></span>
+              <span className="icon">
+                <NextArrow />
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

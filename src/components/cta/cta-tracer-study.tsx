@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import cta_logo from '@/assets/img/cta/cta-logo-1.png';
 import cta_shape from '@/assets/img/cta/cta-shape-1.png';
 import { RightArrow } from "../svg";
 
@@ -20,7 +19,31 @@ export default function CtaTracerStudy() {
             <div className="tp-cta-wrapper d-flex align-items-center">
               <div className="tp-cta-logo">
                 <Link href="/">
-                  <Image src={cta_logo} alt="logo-pemprov-kaltim" />
+                  <div
+                    style={{
+                      width: "76px",
+                      height: "76px",
+                      borderRadius: "50%",
+                      backgroundColor: "#ffffff",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "8px",
+                      boxShadow: "0 6px 18px rgba(0,0,0,0.3)",
+                      border: "2px solid rgba(255,255,255,0.5)",
+                      transition: "transform 0.25s ease",
+                    }}
+                  >
+                    <Image
+                      src="/assets/img/logo/logo-kaltim-transparent.webp"
+                      alt="Logo Pemprov Kalimantan Timur"
+                      width={58}
+                      height={58}
+                      style={{
+                        objectFit: "contain",
+                      }}
+                    />
+                  </div>
                 </Link>
               </div>
               <div className="tp-cta-content">
@@ -37,7 +60,7 @@ export default function CtaTracerStudy() {
                 <Link className="tp-btn" href="/tracer">
                   Isi Kuesioner Sekarang{" "}
                   <span>
-                    <RightArrow clr="currentColor"/>
+                    <RightArrow clr="currentColor" />
                   </span>
                 </Link>
               </div>

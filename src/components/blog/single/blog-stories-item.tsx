@@ -42,7 +42,7 @@ export default function BlogStoriesItem({ blog }: IProps) {
                 width={44}
                 height={44}
                 unoptimized={typeof blog.author_img === "string" && blog.author_img.startsWith("http")}
-                style={{ borderRadius: "50%", objectFit: "cover" }}
+                style={{ borderRadius: "50%", objectFit: "contain", backgroundColor: "#ffffff", padding: "2px", border: "1px solid #e2e8f0" }}
               />
             </div>
           )}

@@ -74,7 +74,7 @@ async function fetchRelatedNews(currentId: number): Promise<IBlogDT[]> {
             tag: item.kategori || 'Warta Disdikbud',
             title: item.judul,
             author: item.penulis || 'Humas Disdikbud Kaltim',
-            author_img: '/assets/img/blog/blog-stories/blog-stories-user-1.jpg',
+            author_img: '/assets/img/logo/logo kaltim.webp',
             date: new Date(item.dibuat_pada).toLocaleDateString('id-ID', {
               day: '2-digit',
               month: 'short',

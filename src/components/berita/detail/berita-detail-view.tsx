@@ -31,10 +31,27 @@ type Props = {
 export default function BeritaDetailView({ berita, related }: Props) {
   const [copied, setCopied] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
+  const [isZoomOpen, setIsZoomOpen] = useState(false);
 
   useEffect(() => {
     setShareUrl(window.location.href);
   }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsZoomOpen(false);
+    };
+    if (isZoomOpen) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isZoomOpen]);
 
   // Format tanggal bahasa Indonesia
   let formattedDate = berita.dibuat_pada;
@@ -156,14 +173,17 @@ export default function BeritaDetailView({ berita, related }: Props) {
                   <div className="tp-blog-details-user order-3 order-lg-2 d-flex align-items-center gap-3">
                     <span className="d-inline-flex align-items-center">
                       <Image
-                        src="/assets/img/blog/blog-stories/blog-stories-user-1.jpg"
+                        src="/assets/img/logo/logo kaltim.webp"
                         alt={berita.penulis || 'Penulis'}
                         width={36}
                         height={36}
                         style={{
                           borderRadius: '50%',
                           marginRight: '8px',
-                          objectFit: 'cover',
+                          objectFit: 'contain',
+                          backgroundColor: '#ffffff',
+                          padding: '2px',
+                          boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
                         }}
                       />
                       {berita.penulis || 'Humas Disdikbud Kaltim'}
@@ -249,18 +269,20 @@ export default function BeritaDetailView({ berita, related }: Props) {
         </div>
       </section>
 
-      {/* 2. Full Width Image Banner */}
+      {/* 2. Full Width Image Banner dengan Fitur Zoom */}
       <div className="tp-blog-full-width-img">
         <div className="container-fluid p-0">
           <div className="row g-0">
             <div className="col-lg-12">
               <div
-                className="tp-blog-full-width-thumb p-relative"
+                className="tp-blog-full-width-thumb p-relative banner-zoom-wrapper"
                 style={{
-                  backgroundColor: '#f1f3f5',
+                  backgroundColor: '#031F42',
                   maxHeight: '580px',
                   overflow: 'hidden',
+                  cursor: 'pointer',
                 }}
+                onClick={() => setIsZoomOpen(true)}
               >
                 <Image
                   src={berita.gambar || '/assets/img/blog/deatils/blog-full-width-bg.jpg'}
@@ -275,9 +297,40 @@ export default function BeritaDetailView({ berita, related }: Props) {
                     width: '100%',
                     height: '520px',
                     objectFit: 'cover',
+                    transition: 'transform 0.4s ease',
                   }}
                   priority
                 />
+
+                {/* Overlay & Centered Zoom Button */}
+                <div className="banner-zoom-overlay">
+                  <button
+                    type="button"
+                    className="banner-zoom-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsZoomOpen(true);
+                    }}
+                    aria-label="Perbesar gambar banner"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      width={20}
+                      height={20}
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      <line x1="11" y1="8" x2="11" y2="14" />
+                      <line x1="8" y1="11" x2="14" y2="11" />
+                    </svg>
+                    <span>Perbesar Gambar</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -465,13 +518,16 @@ export default function BeritaDetailView({ berita, related }: Props) {
                   <div className="tp-postbox-details-author-wrap d-flex align-items-center">
                     <div className="tp-postbox-details-author-avata">
                       <Image
-                        src="/assets/img/blog/blog-stories/blog-stories-user-1.jpg"
+                        src="/assets/img/logo/logo kaltim.webp"
                         alt={berita.penulis || 'Penulis'}
                         width={75}
                         height={75}
                         style={{
                           borderRadius: '50%',
-                          objectFit: 'cover',
+                          objectFit: 'contain',
+                          backgroundColor: '#ffffff',
+                          padding: '4px',
+                          boxShadow: '0 2px 6px rgba(0,0,0,0.08)',
                         }}
                       />
                     </div>
@@ -556,6 +612,59 @@ export default function BeritaDetailView({ berita, related }: Props) {
             </div>
           </div>
         </section>
+      )}
+
+      {/* 5. Lightbox Modal Fullscreen dengan Blur Backdrop */}
+      {isZoomOpen && (
+        <div
+          className="banner-lightbox-backdrop"
+          onClick={() => setIsZoomOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Tampilan Penuh Gambar Banner"
+        >
+          {/* Tombol Tutup (X) */}
+          <button
+            type="button"
+            className="banner-lightbox-close"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsZoomOpen(false);
+            }}
+            aria-label="Tutup tampilan penuh"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width={22}
+              height={22}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2.5}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+
+          {/* Kontainer Gambar Penuh */}
+          <div
+            className="banner-lightbox-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={berita.gambar || '/assets/img/blog/deatils/blog-full-width-bg.jpg'}
+              alt={berita.judul}
+              className="banner-lightbox-img"
+            />
+            <div className="banner-lightbox-caption">
+              <span className="caption-badge">{berita.kategori}</span>
+              <p className="caption-title">{berita.judul}</p>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );
