@@ -52,12 +52,12 @@ export default function TestimonialOne() {
               className="tp-testimonial-wrapper wow fadeInRight"
               data-wow-delay=".3s"
             >
-              <div className="tp-section mb-40">
+              <div className="tp-section mb-40" style={{ position: "relative", zIndex: 5 }}>
                 <h5 className="tp-section-subtitle">Suara Alumni Kaltim</h5>
                 <h3 className="tp-section-title">Cerita Sukses Alumni Tamatan</h3>
               </div>
               <div className="tp-testimonial-shape">
-                <div className="tp-testimonial-shape-1">
+                <div className="tp-testimonial-shape-1" style={{ zIndex: 1, pointerEvents: "none" }}>
                   <Image src={shape_1} alt="testimonial-shape" />
                 </div>
                 <div className="tp-testimonial-shape-2">

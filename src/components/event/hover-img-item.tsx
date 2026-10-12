@@ -27,7 +27,12 @@ export default function HoverImgItem({ img, title, link = "/tracer" }: IProps) {
         {title}
         <div
           className="tp-hover-reveal-bg"
-          style={{ backgroundImage: `url(${img})` }}
+          style={{
+            backgroundImage: `url(${img})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+            backgroundRepeat: "no-repeat",
+          }}
         ></div>
       </a>
     );
@@ -44,7 +49,12 @@ export default function HoverImgItem({ img, title, link = "/tracer" }: IProps) {
       {title}
       <div
         className="tp-hover-reveal-bg"
-        style={{ backgroundImage: `url(${img})` }}
+        style={{
+          backgroundImage: `url(${img})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
+          backgroundRepeat: "no-repeat",
+        }}
       ></div>
     </Link>
   );

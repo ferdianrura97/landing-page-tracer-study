@@ -673,3 +673,34 @@
     }
   }
 }
+
+
+// ==========================================
+// AGENDA EVENT HOVER REVEAL IMAGE THUMBNAIL
+// ==========================================
+.tp-img-reveal-item {
+  .tp-hover-reveal-bg {
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    z-index: 99 !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28) !important;
+    border: 2px solid rgba(255, 255, 255, 0.85) !important;
+  }
+}
+
+
+// ==========================================
+// TESTIMONIAL QUOTE BACKGROUND SHAPE BEHIND TEXT
+// ==========================================
+.tp-testimonial-wrapper {
+  .tp-section {
+    position: relative !important;
+    z-index: 5 !important;
+  }
+
+  .tp-testimonial-shape-1 {
+    z-index: 1 !important;
+    pointer-events: none !important;
+  }
+}
