@@ -20,6 +20,7 @@ export interface BeritaDetailData {
   diterbitkan?: boolean;
   dibuat_pada: string;
   diperbarui_pada?: string;
+  tags?: Array<{ id: number; nama: string; slug: string }>;
 }
 
 type Props = {
@@ -389,9 +390,19 @@ export default function BeritaDetailView({ berita, related }: Props) {
                         <Link href={`/berita?kategori=${encodeURIComponent(berita.kategori)}`}>
                           #{berita.kategori}
                         </Link>
-                        <Link href="/berita">#TracerStudyKaltim</Link>
-                        <Link href="/berita">#DisdikbudKaltim</Link>
-                        <Link href="/berita">#VokasiKaltim</Link>
+                        {Array.isArray(berita.tags) && berita.tags.length > 0 ? (
+                          berita.tags.map((t) => (
+                            <Link key={t.id} href={`/berita?tag=${encodeURIComponent(t.nama)}`}>
+                              #{t.nama}
+                            </Link>
+                          ))
+                        ) : (
+                          <>
+                            <Link href="/berita?tag=Tracer%20Study">#TracerStudy</Link>
+                            <Link href="/berita?tag=Disdikbud%20Kaltim">#DisdikbudKaltim</Link>
+                            <Link href="/berita?tag=Vokasi%20Kaltim">#VokasiKaltim</Link>
+                          </>
+                        )}
                       </div>
                     </div>
                     <div className="col-md-4">

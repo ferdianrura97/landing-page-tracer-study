@@ -28,6 +28,7 @@ interface Props {
   onSearchChange: (keyword: string) => void;
   activeTag: string;
   onSelectTag: (tag: string) => void;
+  availableTags?: Array<{ id: number; nama: string; slug: string }>;
 }
 
 export default function BeritaSidebar({
@@ -39,7 +40,9 @@ export default function BeritaSidebar({
   onSearchChange,
   activeTag,
   onSelectTag,
+  availableTags,
 }: Props) {
+  const tagsToRender = availableTags && availableTags.length > 0 ? availableTags.map(t => t.nama) : STATIC_TAGS;
   return (
     <div className="tp-sidebar-wrapper pl-55">
       {/* 1. Search Box */}
@@ -127,7 +130,7 @@ export default function BeritaSidebar({
         <div className="tp-sidebar-content">
           <h5 className="tp-sidebar-widget-title">Tag Populer</h5>
           <div className="tagcloud">
-            {STATIC_TAGS.map((tag) => (
+            {tagsToRender.map((tag) => (
               <a
                 key={tag}
                 role="button"

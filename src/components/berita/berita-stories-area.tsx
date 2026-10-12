@@ -20,6 +20,7 @@ interface Props {
   activeTag: string;
   onSelectTag: (tag: string) => void;
   onResetFilter: () => void;
+  availableTags?: Array<{ id: number; nama: string; slug: string }>;
 }
 
 export default function BeritaStoriesArea({
@@ -36,6 +37,7 @@ export default function BeritaStoriesArea({
   activeTag,
   onSelectTag,
   onResetFilter,
+  availableTags,
 }: Props) {
   return (
     <section className="tp-blog-stories-area p-relative pb-120">

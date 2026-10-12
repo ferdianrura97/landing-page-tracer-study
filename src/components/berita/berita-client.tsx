@@ -19,35 +19,54 @@ const normalizeText = (text?: string | null) =>
 export default function BeritaClient() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get('kategori') || 'Semua';
+  const initialTag = searchParams.get('tag') || '';
 
   const [news, setNews] = useState<IBlogDT[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
-  const [activeTag, setActiveTag] = useState<string>('');
+  const [activeTag, setActiveTag] = useState<string>(initialTag);
   const [currentPage, setCurrentPage] = useState<number>(0);
 
-  // Sinkronisasi saat URL query param kategori berubah
+  // Master dinamis dari DB
+  const [dbCategories, setDbCategories] = useState<Array<{ id: number; nama: string; slug: string; total_berita: number }>>([]);
+  const [dbTags, setDbTags] = useState<Array<{ id: number; nama: string; slug: string; total_berita: number }>>([]);
+
+  // Sinkronisasi saat URL query param berubah
   useEffect(() => {
     const catParam = searchParams.get('kategori');
-    if (catParam) {
-      setSelectedCategory(catParam);
-    } else {
-      setSelectedCategory('Semua');
-    }
+    setSelectedCategory(catParam || 'Semua');
+
+    const tagParam = searchParams.get('tag');
+    setActiveTag(tagParam || '');
+
     setCurrentPage(0);
   }, [searchParams]);
 
   useEffect(() => {
-    async function loadNews() {
+    async function loadData() {
       setLoading(true);
       try {
-        const res = await fetchApi<{ sukses: boolean; data: any[] }>('/publik/berita');
-        if (res.sukses && Array.isArray(res.data) && res.data.length > 0) {
-          const mapped: IBlogDT[] = res.data.map((item) => ({
+        const [resBerita, resKat, resTag] = await Promise.all([
+          fetchApi<{ sukses: boolean; data: any[] }>('/publik/berita'),
+          fetchApi<{ sukses: boolean; data: any[] }>('/publik/kategori-berita').catch(() => ({ sukses: false, data: [] })),
+          fetchApi<{ sukses: boolean; data: any[] }>('/publik/tag-berita').catch(() => ({ sukses: false, data: [] })),
+        ]);
+
+        if (resKat.sukses && Array.isArray(resKat.data)) {
+          setDbCategories(resKat.data);
+        }
+
+        if (resTag.sukses && Array.isArray(resTag.data)) {
+          setDbTags(resTag.data);
+        }
+
+        if (resBerita.sukses && Array.isArray(resBerita.data) && resBerita.data.length > 0) {
+          const mapped: IBlogDT[] = resBerita.data.map((item) => ({
             id: item.id,
             img: item.gambar || '/assets/img/blog/blog-thumb-1.jpg',
             tag: item.kategori || 'Warta Disdikbud',
+            tags: Array.isArray(item.tags) ? item.tags : undefined,
             title: item.judul,
             author: item.penulis || 'Humas Disdikbud Kaltim',
             author_img: '/assets/img/blog/blog-stories/blog-stories-user-1.jpg',
@@ -70,17 +89,20 @@ export default function BeritaClient() {
         setLoading(false);
       }
     }
-    loadNews();
+    loadData();
   }, []);
 
-  // Kategori unik
+  // Kategori unik (prioritaskan master DB jika tersedia)
   const categories = useMemo(() => {
+    if (dbCategories.length > 0) {
+      return ['Semua', ...dbCategories.map((c) => c.nama)];
+    }
     const list = new Set<string>();
     news.forEach((n) => {
       if (n.tag) list.add(n.tag.trim());
     });
     return ['Semua', ...Array.from(list)];
-  }, [news]);
+  }, [dbCategories, news]);
 
   // Hitungan jumlah per kategori
   const categoriesWithCount = useMemo(() => {
@@ -108,12 +130,17 @@ export default function BeritaClient() {
         (item.tag && item.tag.toLowerCase().includes(kw)) ||
         (item.author && item.author.toLowerCase().includes(kw));
 
-      const tagKw = activeTag.trim().toLowerCase();
+      const tagKw = normalizeText(activeTag);
       const matchTag =
         !tagKw ||
-        item.title.toLowerCase().includes(tagKw) ||
-        (item.tag && item.tag.toLowerCase().includes(tagKw)) ||
-        (item.desc && item.desc.toLowerCase().includes(tagKw));
+        (Array.isArray(item.tags) &&
+          item.tags.some(
+            (t) =>
+              normalizeText(t.nama) === tagKw || normalizeText(t.slug) === tagKw
+          )) ||
+        normalizeText(item.title).includes(tagKw) ||
+        normalizeText(item.tag).includes(tagKw) ||
+        normalizeText(item.desc).includes(tagKw);
 
       return matchCategory && matchSearch && matchTag;
     });
@@ -150,10 +177,23 @@ export default function BeritaClient() {
     setCurrentPage(0);
   }, []);
 
-  const handleSelectTag = useCallback((tag: string) => {
-    setActiveTag((prev) => (prev === tag ? '' : tag));
-    setCurrentPage(0);
-  }, []);
+  const handleSelectTag = useCallback(
+    (tag: string) => {
+      const nextTag = activeTag === tag ? '' : tag;
+      setActiveTag(nextTag);
+      setCurrentPage(0);
+      if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href);
+        if (!nextTag) {
+          url.searchParams.delete('tag');
+        } else {
+          url.searchParams.set('tag', nextTag);
+        }
+        window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+      }
+    },
+    [activeTag]
+  );
 
   const handlePageClick = useCallback((event: { selected: number }) => {
     setCurrentPage(event.selected);
@@ -168,6 +208,7 @@ export default function BeritaClient() {
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
       url.searchParams.delete('kategori');
+      url.searchParams.delete('tag');
       window.history.replaceState({}, '', url.pathname);
     }
   }, []);
@@ -198,6 +239,7 @@ export default function BeritaClient() {
         onSearchChange={handleSearchChange}
         activeTag={activeTag}
         onSelectTag={handleSelectTag}
+        availableTags={dbTags}
         onResetFilter={handleResetFilter}
       />
     </>
