@@ -10,13 +10,16 @@ import HeaderStickyWrapper from "./header-sticky-provider/header-sticky-wrapper"
 import SearchButton from "./button/search-button";
 import OffcanvasButton from "./button/offcanvas-btn";
 
-export default function HeaderOne() {
+type IProps = {
+  transparent?: boolean;
+};
+
+export default function HeaderOne({ transparent = true }: IProps) {
   return (
     <>
-      <header className="header-area tp-header-transparent p-relative">
-         
+      <header className={`header-area ${transparent ? "tp-header-transparent" : "tp-header-solid"} p-relative`}>
         {/* header top start*/}
-         <HeaderTopArea />
+        <HeaderTopArea />
         {/* header top end */}
 
         <HeaderStickyWrapper>
@@ -35,23 +38,23 @@ export default function HeaderOne() {
                   </Link>
                 </div>
               </div>
-              <div className="col-xxl-8 col-xl-7 d-none d-xl-block">
+              <div className="col-xxl-7 col-xl-7 d-none d-xl-block">
                 <div className="main-menu text-end">
                   {/* nav menus start */}
                   <NavMenus />
                   {/* nav menus end */}
                 </div>
               </div>
-              <div className="col-xxl-2 col-xl-3 col-lg-6 col-md-6 col-6">
+              <div className="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-6">
                 <div className="tp-header-contact d-flex align-items-center justify-content-end">
                   <div className="tp-header-serach">
                     <SearchButton icon={<SearchSvg />} />
                   </div>
-                  <div className="tp-header-btn d-none d-md-block ml-30">
-                    <Link href="/university-application-form">Apply Now</Link>
+                  <div className="tp-header-btn d-none d-md-block ml-25">
+                    <Link href="/tracer">Isi Kuesioner</Link>
                   </div>
-                  <div className="tp-header-bar d-xl-none ml-30">
-                    <OffcanvasButton/>
+                  <div className="tp-header-bar d-xl-none ml-25">
+                    <OffcanvasButton />
                   </div>
                 </div>
               </div>
@@ -61,7 +64,7 @@ export default function HeaderOne() {
       </header>
 
       {/* mobile offcanvas */}
-      <div id="offcanvas-sidebar"/>
+      <div id="offcanvas-sidebar" />
       {/* mobile offcanvas */}
     </>
   );

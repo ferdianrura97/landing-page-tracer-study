@@ -95,3 +95,312 @@
             color: #6D7081;
         }
       }
+// ==========================================
+// TRACER STUDY KALTIM - CUSTOM THEME OVERRIDES
+// ==========================================
+
+// Base Header Button Reset
+.tp-header-btn a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  line-height: 1 !important;
+  vertical-align: middle !important;
+}
+
+// Solid Header for Inner Pages (Fix overlap with breadcrumb/banner)
+.tp-header-solid {
+  position: relative !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  .tp-header-logo-1 {
+    .logo-1 {
+      display: none !important;
+    }
+    .logo-2 {
+      display: block !important;
+    }
+  }
+
+  .main-menu nav > ul > li > a {
+    color: #171c26 !important;
+    &:hover {
+      color: var(--tp-theme-primary) !important;
+    }
+  }
+
+  .main-menu nav > ul > li.has-dropdown > a::after {
+    color: #171c26 !important;
+  }
+
+  .tp-header-serach {
+    color: #171c26 !important;
+    &:hover {
+      color: var(--tp-theme-primary) !important;
+    }
+  }
+
+  .tp-header-btn a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    color: #ffffff !important;
+    background-color: var(--tp-theme-primary) !important;
+    border: 1px solid var(--tp-theme-primary) !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+    padding: 10px 22px !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 10px rgba(171, 12, 47, 0.22) !important;
+    transition: all 0.25s ease !important;
+    &:hover {
+      background-color: #880824 !important;
+      border-color: #880824 !important;
+      color: #ffffff !important;
+      box-shadow: 0 6px 14px rgba(136, 8, 36, 0.32) !important;
+    }
+  }
+
+  .offcanvas-open-btn {
+    background-color: var(--tp-theme-primary) !important;
+    i {
+      color: #ffffff !important;
+    }
+  }
+}
+
+// ==========================================
+// BLOG STORIES & SIDEBAR - ACADIA HOME MAROON (#AB0C2F)
+// ==========================================
+.tp-blog-stories-btn-box {
+  a {
+    cursor: pointer;
+    border: 1px solid #e8e8e9;
+    color: var(--tp-grey-6);
+    background: #ffffff;
+    transition: all 0.25s ease;
+
+    &.active,
+    &:hover {
+      background-color: var(--tp-theme-primary) !important;
+      border-color: var(--tp-theme-primary) !important;
+      color: #ffffff !important;
+      box-shadow: 0px 4px 12px rgba(171, 12, 47, 0.28) !important;
+    }
+  }
+
+  span:hover {
+    background-color: var(--tp-theme-primary) !important;
+    color: #ffffff !important;
+  }
+}
+
+.tp-blog-stories-banner-wrap {
+  .tp-blog-stories-banner-thumb::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(17, 18, 24, 0.25) 0%, rgba(17, 18, 24, 0.85) 100%);
+    border-radius: 10px;
+    pointer-events: none;
+  }
+
+  .tp-blog-stories-banner-content {
+    z-index: 2;
+  }
+}
+
+.tp-blog-stories-banner-sub {
+  background-color: var(--tp-theme-primary) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  border-radius: 100px;
+  padding: 6px 18px;
+}
+
+.tp-blog-stories-title a:hover {
+  color: var(--tp-theme-primary) !important;
+}
+
+.tp-blog-stories-tag-wrap {
+  a {
+    background-color: rgba(171, 12, 47, 0.08) !important;
+    color: var(--tp-theme-primary) !important;
+    font-weight: 500;
+    &:hover {
+      background-color: var(--tp-theme-primary) !important;
+      color: #ffffff !important;
+    }
+  }
+}
+
+.tp-sidebar-content {
+  ul li a:hover,
+  ul li a:hover span,
+  ul li a.active,
+  ul li a.active span {
+    color: var(--tp-theme-primary) !important;
+    font-weight: 600;
+  }
+}
+
+.tp-recent-post-title a:hover {
+  color: var(--tp-theme-primary) !important;
+}
+
+.tp-recent-post-span {
+  background-color: rgba(171, 12, 47, 0.08) !important;
+  color: var(--tp-theme-primary) !important;
+}
+
+.tp-sidebar-search {
+  input:focus {
+    border-color: var(--tp-theme-primary) !important;
+    box-shadow: 0px 0px 0px 3px rgba(171, 12, 47, 0.16) !important;
+  }
+}
+
+.tp-sidebar-search-btn:hover {
+  color: var(--tp-theme-primary) !important;
+}
+
+.tagcloud a {
+  cursor: pointer;
+  background-color: rgba(171, 12, 47, 0.06);
+  color: #525356;
+  border: 1px solid rgba(171, 12, 47, 0.12);
+  transition: all 0.2s ease;
+
+  &.active,
+  &:hover {
+    background-color: var(--tp-theme-primary) !important;
+    color: #ffffff !important;
+    border-color: var(--tp-theme-primary) !important;
+    box-shadow: 0px 2px 8px rgba(171, 12, 47, 0.25) !important;
+  }
+}
+
+.tp-pagination {
+  ul li {
+    &.current,
+    &:hover {
+      background-color: var(--tp-theme-primary) !important;
+      border-color: var(--tp-theme-primary) !important;
+      color: #ffffff !important;
+    }
+
+    a.current,
+    a:hover {
+      background-color: var(--tp-theme-primary) !important;
+      border-color: var(--tp-theme-primary) !important;
+      color: #ffffff !important;
+    }
+  }
+}
+
+/* Berita Detail typography & styling */
+.article-content {
+  p {
+    margin-bottom: 22px;
+    font-size: 16.5px;
+    line-height: 1.85;
+    color: #4a5568;
+  }
+  h2, h3, h4 {
+    color: #031F42;
+    margin-top: 36px;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+  ul, ol {
+    margin-bottom: 24px;
+    padding-left: 24px;
+    li {
+      margin-bottom: 8px;
+      line-height: 1.7;
+      color: #4a5568;
+    }
+  }
+  blockquote {
+    border-left: 4px solid #AB0C2F;
+    padding: 16px 24px;
+    background: #fbfbfc;
+    margin: 28px 0;
+    font-style: italic;
+    color: #2d3748;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 20px 0;
+  }
+}
+
+/* Tombol Tema (Pill) */
+.tp-btn-theme-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  background-color: var(--tp-theme-primary) !important;
+  border: 1.5px solid var(--tp-theme-primary) !important;
+  color: #ffffff !important;
+  border-radius: 50px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: 9px 24px !important;
+  line-height: 1.2 !important;
+  box-shadow: 0 4px 12px rgba(171, 12, 47, 0.22) !important;
+  transition: all 0.25s ease !important;
+
+  i {
+    color: #ffffff !important;
+    transition: transform 0.2s ease !important;
+  }
+
+  &:hover {
+    background-color: #880824 !important;
+    border-color: #880824 !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 16px rgba(136, 8, 36, 0.35) !important;
+    transform: translateY(-2px) !important;
+
+    i {
+      transform: translateX(3px) !important;
+    }
+  }
+}
+
+.tp-blog-full-width-back a:hover {
+  color: var(--tp-theme-primary) !important;
+  span {
+    border-color: var(--tp-theme-primary) !important;
+    color: var(--tp-theme-primary) !important;
+  }
+}
+
+.tp-postbox-details-social {
+  a,
+  button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    vertical-align: middle !important;
+    text-decoration: none !important;
+
+    &:hover {
+      background-color: var(--tp-theme-primary) !important;
+      border-color: var(--tp-theme-primary) !important;
+      color: #ffffff !important;
+
+      svg {
+        fill: #ffffff !important;
+      }
+    }
+  }
+}

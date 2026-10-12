@@ -74,7 +74,7 @@ import CalenderSvg,{CalenderTwoSvg,CalenderThreeSvg} from "./calender-svg";
 import WorldSvg from "./world-svg";
 import {TutorIconOne,TutorIconThree,TutorIconTwo} from "./tutor-icon";
 import Ongoing from "./ongoing";
-import {FbSvg,InstagramSvg,TwitterSvg,YoutubeSvg,GoogleSvg,BehanceSvg,DribbleSvg,YoutubeTwoSvg} from './social-svg';
+import {FbSvg,InstagramSvg,TwitterSvg,YoutubeSvg,GoogleSvg,BehanceSvg,DribbleSvg,YoutubeTwoSvg,XSvg} from './social-svg';
 import {CloseEye,OpenEye,OpenEyeTwo,CloseEyeTwo,CloseEyeThree,OpenEyeThree} from './eye';
 import {GridSvg,ListSvg,FilterSvg} from './grid-list';
 import {DownloadSvg,GiftBoxSvg,HeartSvg,OrderBoxSvg,DownloadTwoSvg} from './profile-icons';
@@ -176,6 +176,7 @@ export {
   FbSvg,
   InstagramSvg,
   TwitterSvg,
+  XSvg,
   YoutubeSvg,
   MinusSvg,
   PlusTwoSvg,

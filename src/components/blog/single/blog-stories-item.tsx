@@ -5,21 +5,33 @@ import Link from "next/link";
 type IProps = {
   blog: IBlogDT;
 };
+
 export default function BlogStoriesItem({ blog }: IProps) {
+  const targetUrl = `/berita/${blog.id}`;
+
   return (
     <div className="tp-blog-stories-item p-relative mb-50">
       <div className="tp-blog-stories-thumb">
-        <Link href={`/blog-details/${blog.id}`}>
-          <Image src={blog.img} width={384} height={220} alt={blog.title} />
+        <Link href={targetUrl}>
+          <Image
+            src={blog.img}
+            width={384}
+            height={220}
+            alt={blog.title}
+            unoptimized={typeof blog.img === "string" && blog.img.startsWith("http")}
+            style={{ objectFit: "cover", height: "220px", width: "100%" }}
+          />
         </Link>
       </div>
       <div className="tp-blog-stories-content">
-        <div className="tp-blog-stories-tag-wrap d-flex">
-          <a href="#">{blog.tag}</a>
+        <div className="tp-blog-stories-tag-wrap d-flex align-items-center">
+          <Link href={`/berita?kategori=${encodeURIComponent(blog.tag)}`}>
+            {blog.tag}
+          </Link>
           <span>{blog.date}</span>
         </div>
-        <h4 className="tp-blog-stories-title">
-          <Link href={`/blog-details/${blog.id}`}>{blog.title}</Link>
+        <h4 className="tp-blog-stories-title" style={{ fontSize: "20px", lineHeight: 1.4, minHeight: "56px" }}>
+          <Link href={targetUrl}>{blog.title}</Link>
         </h4>
         <div className="tp-blog-stories-user-box d-flex align-items-center">
           {blog.author_img && (
@@ -29,6 +41,8 @@ export default function BlogStoriesItem({ blog }: IProps) {
                 alt={blog.author}
                 width={44}
                 height={44}
+                unoptimized={typeof blog.author_img === "string" && blog.author_img.startsWith("http")}
+                style={{ borderRadius: "50%", objectFit: "cover" }}
               />
             </div>
           )}

@@ -7,7 +7,7 @@ import MainProvider from "@/components/provider/main-provider";
 export default function TracerLayout({ children }: { children: React.ReactNode }) {
   return (
     <MainProvider>
-      <HeaderOne />
+      <HeaderOne transparent={false} />
       {children}
       <FooterOne />
       <BackToTop />
