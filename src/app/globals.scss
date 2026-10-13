@@ -99,14 +99,30 @@
 // TRACER STUDY KALTIM - CUSTOM THEME OVERRIDES
 // ==========================================
 
-// Base Header Button Reset
+// Base Header Button (Always Maroon #AB0C2F on all pages & states)
 .tp-header-btn a {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   white-space: nowrap !important;
+  color: #ffffff !important;
+  background-color: var(--tp-theme-primary) !important;
+  border: 1px solid var(--tp-theme-primary) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
   line-height: 1 !important;
-  vertical-align: middle !important;
+  padding: 10px 22px !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 10px rgba(171, 12, 47, 0.22) !important;
+  transition: all 0.25s ease !important;
+
+  &:hover {
+    background-color: #880824 !important;
+    border-color: #880824 !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 14px rgba(136, 8, 36, 0.32) !important;
+    transform: translateY(-1px) !important;
+  }
 }
 
 // Solid Header for Inner Pages (Fix overlap with breadcrumb/banner)
