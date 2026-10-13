@@ -1323,170 +1323,97 @@
 
 
 // ==========================================
-// HERO SECTION KALTIM - DATA REGIONAL THEME
+
+
 // ==========================================
-.tp-hero-area-kaltim {
+// HERO VECTOR ARTWORK & FLOATING CARD ANIMATIONS
+// ==========================================
+.hero-vector-wrapper {
   position: relative;
-  background-color: #02142b;
-  background-image: 
-    radial-gradient(circle at 82% 25%, rgba(171, 12, 47, 0.36) 0%, transparent 48%),
-    radial-gradient(circle at 18% 78%, rgba(2, 44, 91, 0.42) 0%, transparent 50%),
-    linear-gradient(140deg, #02142b 0%, #061f3e 50%, #03152a 100%);
-  overflow: hidden;
+  z-index: 2;
 
-  // Subtle data matrix grid overlay
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: 
-      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
-    mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
-    -webkit-mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  // Subtle decorative glowing ring in corner
-  &::after {
-    content: "";
-    position: absolute;
-    top: -120px;
-    right: -120px;
-    width: 480px;
-    height: 480px;
-    border-radius: 50%;
-    border: 1px dashed rgba(255, 255, 255, 0.08);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .tp-hero-item {
-    position: relative;
-    z-index: 1;
-    padding-top: 260px;
-    padding-bottom: 210px;
-
-    @media (max-width: 991px) {
-      padding-top: 200px;
-      padding-bottom: 160px;
-    }
-
-    @media (max-width: 767px) {
-      padding-top: 170px;
-      padding-bottom: 130px;
-    }
-  }
-
-  .tp-hero-wrapper {
-    margin-left: 0;
-  }
-
-  .hero-eyebrow-badge {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+  .hero-floating-card {
+    z-index: 10;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    max-width: 100%;
-    flex-wrap: wrap;
-
-    .hero-eyebrow-tag {
-      background: #ab0c2f;
-      color: #ffffff;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      padding: 4px 10px;
-    }
-
-    .hero-eyebrow-text {
-      color: rgba(255, 255, 255, 0.92);
-      font-size: 12.5px;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
-  }
-
-  .tp-hero-title {
-    font-size: 54px;
-    font-weight: 700;
-    line-height: 1.2;
-    color: #ffffff;
-    letter-spacing: -0.02em;
-    margin-bottom: 22px;
-    max-width: 960px;
-
-    @media (max-width: 1199px) {
-      font-size: 46px;
-    }
-
-    @media (max-width: 991px) {
-      font-size: 38px;
-    }
-
-    @media (max-width: 767px) {
-      font-size: 30px;
-      line-height: 1.3;
-    }
-  }
-
-  .tp-hero-desc {
-    font-size: 18px;
-    line-height: 1.65;
-    color: rgba(255, 255, 255, 0.82);
-    max-width: 760px;
-    font-weight: 400;
-    margin-bottom: 36px;
-
-    @media (max-width: 767px) {
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 28px;
-    }
-  }
-
-  .hero-btn-primary {
-    background-color: var(--tp-theme-primary) !important;
-    color: #ffffff !important;
-    border: 1.5px solid var(--tp-theme-primary) !important;
-    border-radius: 50px !important;
-    padding: 13px 32px !important;
-    font-size: 15px !important;
-    font-weight: 600 !important;
-    box-shadow: 0 6px 18px rgba(171, 12, 47, 0.32) !important;
-    transition: all 0.25s ease !important;
+    border-radius: 16px !important;
+    transition: transform 0.3s ease;
 
     &:hover {
-      background-color: #880824 !important;
-      border-color: #880824 !important;
-      transform: translateY(-2px) !important;
-      box-shadow: 0 8px 22px rgba(136, 8, 36, 0.45) !important;
+      transform: scale(1.05) !important;
     }
   }
 
-  .hero-btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, 0.06);
-    color: #ffffff;
-    border: 1.5px solid rgba(255, 255, 255, 0.4);
-    border-radius: 50px;
-    padding: 13px 30px;
-    font-size: 15px;
-    font-weight: 600;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    text-decoration: none;
-    transition: all 0.25s ease;
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.16);
-      border-color: #ffffff;
-      color: #ffffff;
-      transform: translateY(-2px);
-    }
+  .hero-float-1 {
+    top: 10px;
+    left: -15px;
+    border-color: rgba(171, 12, 47, 0.22) !important;
+    animation: heroFloat1 3.8s ease-in-out infinite alternate;
   }
+
+  .hero-float-2 {
+    bottom: 35px;
+    right: -10px;
+    border-color: rgba(16, 185, 129, 0.25) !important;
+    animation: heroFloat2 3.4s ease-in-out infinite alternate;
+  }
+
+  .hero-float-3 {
+    bottom: 40px;
+    left: -20px;
+    border-color: rgba(2, 132, 199, 0.25) !important;
+    animation: heroFloat3 4.2s ease-in-out infinite alternate;
+  }
+
+  .hero-floating-toga {
+    transform-origin: 103px 68px;
+    animation: togaFloat 4s ease-in-out infinite alternate;
+  }
+
+  .hero-floating-scroll {
+    transform-origin: 60px 284px;
+    animation: scrollFloat 3.6s ease-in-out infinite alternate;
+  }
+
+  .hero-star-sparkle-1 {
+    animation: starTwinkle 2.4s ease-in-out infinite alternate;
+  }
+
+  .hero-star-sparkle-2 {
+    animation: starTwinkle 3s ease-in-out infinite alternate 0.8s;
+  }
+
+  .hero-star-sparkle-3 {
+    animation: starTwinkle 2.6s ease-in-out infinite alternate 1.4s;
+  }
+}
+
+@keyframes heroFloat1 {
+  0% { transform: translateY(-6px); }
+  100% { transform: translateY(6px); }
+}
+
+@keyframes heroFloat2 {
+  0% { transform: translateY(6px); }
+  100% { transform: translateY(-6px); }
+}
+
+@keyframes heroFloat3 {
+  0% { transform: translateY(-5px); }
+  100% { transform: translateY(5px); }
+}
+
+@keyframes togaFloat {
+  0% { transform: translateY(-4px) rotate(0deg); }
+  100% { transform: translateY(4px) rotate(-3deg); }
+}
+
+@keyframes scrollFloat {
+  0% { transform: translateY(3px); }
+  100% { transform: translateY(-4px); }
+}
+
+@keyframes starTwinkle {
+  0% { opacity: 0.35; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.15); }
 }
