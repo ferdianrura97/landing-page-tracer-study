@@ -5,7 +5,7 @@ import { RightSmArrowThree } from "../svg";
 
 export default function ProgramArea() {
   return (
-    <section className="program-area mb-75">
+    <section id="program" className="program-area mb-75">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-8">

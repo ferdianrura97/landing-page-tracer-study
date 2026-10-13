@@ -841,3 +841,71 @@
     transform: scale(1);
   }
 }
+
+
+// ==========================================
+// BRAND LOGO TEXT STYLES (HEADER TRACER STUDY)
+// ==========================================
+.tp-header-brand-text {
+  line-height: 1.15;
+  .brand-title {
+    font-family: var(--tp-ff-heading);
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    transition: color 0.25s ease;
+  }
+  .brand-sub {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.04em;
+    transition: color 0.25s ease;
+  }
+}
+
+.tp-header-solid,
+.tp-header-sticky {
+  .tp-header-brand-text {
+    .brand-title {
+      color: #031F42 !important;
+    }
+    .brand-sub {
+      color: var(--tp-theme-primary) !important;
+    }
+  }
+}
+
+
+// ==========================================
+// HEADER NAVIGATION SINGLE-ROW & NO-DROPDOWN ARROW FIX
+// ==========================================
+.main-menu {
+  nav.tp-main-menu-content > ul {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    > li {
+      margin: 0 12px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      flex-shrink: 0 !important;
+
+      > a {
+        white-space: nowrap !important;
+        font-size: 16px !important;
+      }
+    }
+
+    > li:not(.has-dropdown) > a::after {
+      display: none !important;
+      content: none !important;
+    }
+  }
+}

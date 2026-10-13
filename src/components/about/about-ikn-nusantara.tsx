@@ -34,7 +34,7 @@ const imgStyle: CSSProperties = {
 
 export default function AboutIknNusantara() {
   return (
-    <section className="about-area tp-about-bg grey-bg pb-60">
+    <section id="ikn" className="about-area tp-about-bg grey-bg pb-60">
         <div className="container">
             <div className="row align-items-center">
                 {/* Sisi Kiri: Konten Teks (DIBALIK) */}

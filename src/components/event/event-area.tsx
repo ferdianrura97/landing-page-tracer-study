@@ -53,7 +53,7 @@ export default function EventArea() {
   }, []);
 
   return (
-    <section className="event-area grey-bg pt-85 pb-110">
+    <section id="agenda" className="event-area grey-bg pt-85 pb-110">
       <div className="container">
         <div className="row align-items-end">
           <div className="col-xl-6 col-md-8">

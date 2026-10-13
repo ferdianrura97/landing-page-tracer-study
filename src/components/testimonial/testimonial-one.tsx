@@ -11,7 +11,7 @@ export default function TestimonialOne() {
   const { playVideo } = useVideoModal();
   return (
     <section
-      className="testimonial-area tp-testimonial-bg fix p-relative"
+      id="testimoni" className="testimonial-area tp-testimonial-bg fix p-relative"
       style={{ backgroundImage: `url(/assets/img/bg/testimonial-bg-2.jpg)` }}
     >
       <div className="tp-testimonial-themebg">

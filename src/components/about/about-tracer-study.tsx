@@ -33,7 +33,7 @@ const imgStyle: CSSProperties = {
 
 export default function AboutTracerStudy() {
   return (
-    <section className="about-area tp-about-bg grey-bg pt-105">
+    <section id="tentang" className="about-area tp-about-bg grey-bg pt-105">
         <div className="container">
             <div className="row align-items-center">
                 {/* Sisi Kiri: Foto & Badge Experience */}
