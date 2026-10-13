@@ -283,6 +283,7 @@ export default function TracerFormWizard() {
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [alertError, setAlertError] = useState('');
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   // Step 1: Verifikasi
   const [nisn, setNisn] = useState(initialNisn);
@@ -401,8 +402,9 @@ export default function TracerFormWizard() {
     try {
       const res = await fetchApi<{
         sukses: boolean;
+        sudah_mengisi?: boolean;
         pesan?: string;
-        data: AlumniProfile;
+        data: AlumniProfile & { receipt?: any };
       }>('/alumni/verifikasi', {
         method: 'POST',
         body: JSON.stringify({
@@ -412,6 +414,15 @@ export default function TracerFormWizard() {
       });
 
       if (res.sukses) {
+        // Jika sudah pernah mengisi, langsung arahkan ke tanda terima selesai
+        if (res.sudah_mengisi && res.data?.receipt) {
+          if (typeof window !== 'undefined') {
+            sessionStorage.setItem('tracer_receipt', JSON.stringify(res.data.receipt));
+          }
+          router.push('/tracer/selesai');
+          return;
+        }
+
         setAlumniData(res.data);
         setCurrentStep(2);
       }
@@ -605,13 +616,18 @@ export default function TracerFormWizard() {
             submittedAt: new Date().toISOString(),
           }));
         }
-        router.push('/tracer/selesai');
+        setShowSuccessAlert(true);
       }
     } catch (err: any) {
       setAlertError(err.message || 'Gagal menyimpan hasil kuesioner. Silakan periksa kembali isian Anda.');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleProceedToReceipt = () => {
+    setShowSuccessAlert(false);
+    router.push('/tracer/selesai');
   };
 
   return (
@@ -1524,6 +1540,133 @@ export default function TracerFormWizard() {
           </div>
         </div>
       </div>
+
+      {/* ==================== SWEETALERT DIALOG NOTIFIKASI SUKSES (TEMA ACADIA) ==================== */}
+      {showSuccessAlert && (
+        <div
+          className="d-flex align-items-center justify-content-center p-3"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 99999,
+            backgroundColor: "rgba(3, 15, 33, 0.6)",
+            backdropFilter: "blur(6px)",
+            WebkitBackdropFilter: "blur(6px)",
+            animation: "fadeIn 0.2s ease-out",
+          }}
+          onClick={handleProceedToReceipt}
+        >
+          <div
+            className="bg-white rounded-4 shadow-lg text-center p-4 p-md-5 position-relative"
+            style={{
+              maxWidth: "480px",
+              width: "100%",
+              border: "1px solid rgba(171, 12, 47, 0.18)",
+              boxShadow: "0 20px 60px rgba(0, 0, 0, 0.22)",
+              animation: "alertPopIn 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Animated Icon Badge */}
+            <div className="mb-3">
+              <div
+                className="d-inline-flex align-items-center justify-content-center rounded-circle"
+                style={{
+                  width: "80px",
+                  height: "80px",
+                  background: "rgba(171, 12, 47, 0.08)",
+                  color: "#AB0C2F",
+                  border: "2px solid rgba(171, 12, 47, 0.15)",
+                }}
+              >
+                <svg
+                  width="40"
+                  height="40"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+              </div>
+            </div>
+
+            {/* Badge Category */}
+            <div>
+              <span
+                className="badge px-3 py-1 rounded-pill fw-bold mb-2 d-inline-block"
+                style={{
+                  background: "rgba(171, 12, 47, 0.08)",
+                  color: "#AB0C2F",
+                  fontSize: "11px",
+                  letterSpacing: "0.04em",
+                  border: "1px solid rgba(171, 12, 47, 0.2)",
+                }}
+              >
+                PENGISIAN BERHASIL
+              </span>
+            </div>
+
+            {/* Title */}
+            <h3
+              className="fw-bold mb-2"
+              style={{ fontSize: "24px", color: "#031F42" }}
+            >
+              Survei Berhasil Dikirim!
+            </h3>
+
+            {/* Message Body */}
+            <p
+              className="text-muted mb-4"
+              style={{ fontSize: "14.5px", lineHeight: 1.6 }}
+            >
+              Terima kasih banyak atas partisipasi dan kontribusi Anda,{" "}
+              <strong style={{ color: "#031F42" }}>{alumniData?.nama_lengkap}</strong>.
+              Data kuesioner Anda telah berhasil terekam di pangkalan data resmi Dinas Pendidikan dan Kebudayaan Provinsi Kalimantan Timur.
+            </p>
+
+            {/* Summary Chip Box */}
+            <div
+              className="p-3 rounded-3 mb-4 text-start border"
+              style={{ background: "#f8fafc", fontSize: "13px" }}
+            >
+              <div className="d-flex justify-content-between mb-1">
+                <span className="text-muted">NISN:</span>
+                <span className="fw-semibold font-monospace text-dark">{alumniData?.nisn}</span>
+              </div>
+              <div className="d-flex justify-content-between mb-1">
+                <span className="text-muted">Almamater:</span>
+                <span className="fw-semibold text-dark text-truncate ms-2" style={{ maxWidth: "230px" }}>
+                  {alumniData?.sekolah.nama_sekolah}
+                </span>
+              </div>
+              <div className="d-flex justify-content-between">
+                <span className="text-muted">Status Tercatat:</span>
+                <span className="fw-bold" style={{ color: "#AB0C2F" }}>
+                  {statusUtama.replace(/_/g, " ")}
+                </span>
+              </div>
+            </div>
+
+            {/* Action Button */}
+            <button
+              type="button"
+              onClick={handleProceedToReceipt}
+              className="tracer-btn-next w-100 py-3"
+              style={{ fontSize: "15px" }}
+            >
+              Lihat Tanda Terima Digital <i className="fa-solid fa-arrow-right ms-2"></i>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
