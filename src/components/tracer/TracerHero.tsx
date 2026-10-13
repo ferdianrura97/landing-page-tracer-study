@@ -25,7 +25,7 @@ export default function TracerHero() {
             <div className="tp-hero-content">
               <div className="d-inline-flex align-items-center mb-20 px-3 py-1 bg-white rounded-pill shadow-sm">
                 <span className="badge bg-success rounded-pill me-2" style={{ padding: '6px 12px', fontSize: '11px' }}>RESMI</span>
-                <span style={{ fontSize: '13px', fontWeight: 600, color: '#1E856C' }}>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: '#AB0C2F' }}>
                   Dinas Pendidikan &amp; Kebudayaan Provinsi Kalimantan Timur
                 </span>
               </div>
@@ -39,7 +39,7 @@ export default function TracerHero() {
               {/* Quick Check Form Box */}
               <div className="bg-white p-4 rounded-4 shadow-sm mb-30" style={{ maxWidth: '540px', border: '1px solid #d1fae5' }}>
                 <p className="mb-2 fw-semibold text-dark" style={{ fontSize: '14px' }}>
-                  <i className="fa-solid fa-id-card me-2 text-success"></i>
+                  <i className="fa-solid fa-id-card me-2 text-danger"></i>
                   Cek Data Alumni &amp; Mulai Kuesioner:
                 </p>
                 <form onSubmit={handleQuickCheck} className="d-flex flex-column flex-sm-row gap-2">
@@ -55,7 +55,7 @@ export default function TracerHero() {
                   <button
                     type="submit"
                     className="tp-btn text-white rounded-3 px-4 py-2 text-nowrap"
-                    style={{ background: '#1E856C', border: 'none', fontWeight: 600 }}
+                    style={{ background: '#AB0C2F', border: 'none', fontWeight: 600 }}
                   >
                     Mulai Isi <i className="fa-solid fa-arrow-right ms-1"></i>
                   </button>
@@ -67,7 +67,7 @@ export default function TracerHero() {
 
               <div className="d-flex align-items-center gap-3">
                 <Link href="#alur" className="text-decoration-none fw-semibold text-secondary" style={{ fontSize: '14px' }}>
-                  <i className="fa-solid fa-circle-info me-1 text-success"></i> Pelajari Alur Pengisian
+                  <i className="fa-solid fa-circle-info me-1 text-danger"></i> Pelajari Alur Pengisian
                 </Link>
                 <span className="text-muted">&bull;</span>
                 <Link href="#statistik" className="text-decoration-none fw-semibold text-secondary" style={{ fontSize: '14px' }}>
@@ -82,14 +82,14 @@ export default function TracerHero() {
               <div 
                 className="p-5 rounded-4 bg-white shadow"
                 style={{ 
-                  border: '2px solid rgba(30, 133, 108, 0.15)',
+                  border: '2px solid rgba(171, 12, 47, 0.15)',
                   background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)'
                 }}
               >
                 <div className="mb-4">
                   <div 
                     className="d-inline-flex align-items-center justify-content-center rounded-circle"
-                    style={{ width: '80px', height: '80px', background: 'rgba(30, 133, 108, 0.1)', color: '#1E856C' }}
+                    style={{ width: '80px', height: '80px', background: 'rgba(171, 12, 47, 0.1)', color: '#AB0C2F' }}
                   >
                     <i className="fa-solid fa-chart-line fa-2xl"></i>
                   </div>
@@ -101,7 +101,7 @@ export default function TracerHero() {
                 <div className="row g-2 text-start">
                   <div className="col-6">
                     <div className="p-3 rounded-3 bg-light border">
-                      <div className="fw-bold text-success mb-1" style={{ fontSize: '20px' }}>SMA</div>
+                      <div className="fw-bold text-danger mb-1" style={{ fontSize: '20px' }}>SMA</div>
                       <small className="text-muted">Kesiapan Lanjut Studi &amp; Jalur Mandiri</small>
                     </div>
                   </div>

@@ -107,7 +107,7 @@ export default function TracerPublicCharts() {
       categories: barCategories.length ? barCategories : ['Samarinda', 'Balikpapan', 'Kukar', 'Bontang', 'Paser', 'Berau', 'Kubar', 'Kutim', 'PPU', 'Mahulu'],
       labels: { style: { fontSize: '11px' } },
     },
-    colors: ['#1E856C', '#0284c7'],
+    colors: ['#AB0C2F', '#0284c7'],
     legend: { position: 'top', fontSize: '13px' },
   };
 
@@ -115,7 +115,7 @@ export default function TracerPublicCharts() {
     <section id="statistik" className="py-100" style={{ background: '#f8fafc' }}>
       <div className="container">
         <div className="text-center mb-50">
-          <span className="badge bg-success-subtle text-success px-3 py-2 rounded-pill fw-bold mb-2">
+          <span className="badge text-danger px-3 py-2 rounded-pill fw-bold mb-2">
             TRANSPARANSI DATA
           </span>
           <h2 className="fw-bold text-dark mb-2" style={{ fontSize: '32px' }}>
@@ -128,7 +128,7 @@ export default function TracerPublicCharts() {
 
         {loading ? (
           <div className="text-center py-5">
-            <div className="spinner-border text-success" role="status">
+            <div className="spinner-border text-danger" role="status">
               <span className="visually-hidden">Loading...</span>
             </div>
             <p className="mt-2 text-muted">Memuat visualisasi statistik publik…</p>

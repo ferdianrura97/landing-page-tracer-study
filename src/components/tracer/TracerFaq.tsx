@@ -37,7 +37,7 @@ export default function TracerFaq() {
     <section id="faq" className="py-100" style={{ background: '#f8fafc' }}>
       <div className="container">
         <div className="text-center mb-60">
-          <span className="badge bg-success-subtle text-success px-3 py-2 rounded-pill fw-bold mb-2">
+          <span className="badge text-danger px-3 py-2 rounded-pill fw-bold mb-2">
             PUSAT BANTUAN
           </span>
           <h2 className="fw-bold text-dark mb-2" style={{ fontSize: '32px' }}>
@@ -69,7 +69,7 @@ export default function TracerFaq() {
                         {f.q}
                       </span>
                       <i 
-                        className={`fa-solid ${isOpen ? 'fa-minus text-success' : 'fa-plus text-muted'}`}
+                        className={`fa-solid ${isOpen ? 'fa-minus text-danger' : 'fa-plus text-muted'}`}
                       ></i>
                     </button>
                     {isOpen && (

@@ -41,7 +41,7 @@ export default function TracerProcess() {
     <section id="alur" className="py-100" style={{ background: '#ffffff' }}>
       <div className="container">
         <div className="text-center mb-60">
-          <span className="badge bg-success-subtle text-success px-3 py-2 rounded-pill fw-bold mb-2">
+          <span className="badge text-danger px-3 py-2 rounded-pill fw-bold mb-2">
             PANDUAN ALUR
           </span>
           <h2 className="fw-bold text-dark mb-2" style={{ fontSize: '32px' }}>
@@ -83,7 +83,7 @@ export default function TracerProcess() {
           <Link 
             href="/tracer" 
             className="tp-btn text-white px-5 py-3 rounded-pill shadow-sm"
-            style={{ background: '#1E856C', fontSize: '15px', fontWeight: 600 }}
+            style={{ background: '#AB0C2F', fontSize: '15px', fontWeight: 600 }}
           >
             Mulai Pengisian Sekarang <i className="fa-solid fa-arrow-right ms-2"></i>
           </Link>

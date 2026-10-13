@@ -3,19 +3,20 @@ import { useEffect, useState } from "react";
 const useSticky = () => {
   const [sticky, setSticky] = useState(false);
 
-  const stickyHeader = (): void => {
-    if (window.scrollY > 200) {
-      setSticky(true);
-    } else {
-      setSticky(false);
-    }
-  };
-
   useEffect(() => {
-    window.addEventListener("scroll", stickyHeader);
+    const handleScroll = (): void => {
+      const scrollY = window.scrollY;
+      setSticky((prev) => {
+        // Hysteresis band prevents layout oscillation / scroll flicker
+        if (!prev && scrollY > 220) return true;
+        if (prev && scrollY < 120) return false;
+        return prev;
+      });
+    };
 
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return (): void => {
-      window.removeEventListener("scroll", stickyHeader);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 

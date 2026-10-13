@@ -85,7 +85,7 @@ export default function EventArea() {
             <div className="tp-event-btn text-md-end mb-70">
               <a
                 className="tp-btn"
-                href="https://web.disdikbud.kaltimprov.go.id/"
+                href="https://etamkerja.kaltimprov.go.id/depan/bkk"
                 target="_blank"
                 rel="noopener noreferrer"
               >

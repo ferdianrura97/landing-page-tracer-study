@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { fetchApi } from '@/lib/api';
 
@@ -29,6 +29,249 @@ interface KotaItem {
   id: number;
   kode: string;
   nama: string;
+}
+
+
+// ponytail: SearchableSelect custom dropdown, upgrade to virtualized list if items exceed 1000
+function SearchableSelect({
+  options,
+  value,
+  onChange,
+  placeholder = "Pilih...",
+  searchPlaceholder = "Cari...",
+  disabled = false,
+}: {
+  options: Array<{ id: number; nama: string }>;
+  value?: number;
+  onChange: (id: number) => void;
+  placeholder?: string;
+  searchPlaceholder?: string;
+  disabled?: boolean;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const containerRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const selectedItem = useMemo(
+    () => options.find((opt) => opt.id === value),
+    [options, value]
+  );
+
+  const filteredOptions = useMemo(() => {
+    if (!search.trim()) return options;
+    const query = search.toLowerCase();
+    return options.filter((opt) => opt.nama.toLowerCase().includes(query));
+  }, [options, search]);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
+        setIsOpen(false);
+        setSearch("");
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 50);
+    } else {
+      setSearch("");
+    }
+  }, [isOpen]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="position-relative w-100"
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          setIsOpen(false);
+          setSearch("");
+        }
+      }}
+    >
+      <button
+        type="button"
+        disabled={disabled}
+        onClick={() => setIsOpen(!isOpen)}
+        className="form-control py-2 fs-6 d-flex align-items-center justify-content-between text-start"
+        style={{
+          cursor: disabled ? "not-allowed" : "pointer",
+          backgroundColor: disabled ? "#f8fafc" : "#ffffff",
+          borderColor: isOpen ? "#AB0C2F" : "#cbd5e1",
+          boxShadow: isOpen ? "0 0 0 0.2rem rgba(171, 12, 47, 0.16)" : "none",
+          transition: "border-color 0.15s ease, box-shadow 0.15s ease",
+          minHeight: "44px",
+        }}
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+      >
+        <span
+          className="text-truncate me-2"
+          style={{
+            color: selectedItem ? "#1e293b" : "#94a3b8",
+            fontWeight: selectedItem ? 500 : 400,
+          }}
+        >
+          {selectedItem ? selectedItem.nama : placeholder}
+        </span>
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+            transition: "transform 0.2s ease",
+            color: "#64748b",
+            flexShrink: 0,
+          }}
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div
+          className="position-absolute bg-white border rounded-3 shadow-lg p-2"
+          style={{
+            top: "calc(100% + 4px)",
+            left: 0,
+            right: 0,
+            zIndex: 1050,
+            maxHeight: "300px",
+            display: "flex",
+            flexDirection: "column",
+            borderColor: "rgba(171, 12, 47, 0.25)",
+            animation: "selectFadeIn 0.18s ease-out",
+          }}
+        >
+          <div className="position-relative mb-2">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#64748b"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{
+                position: "absolute",
+                left: 10,
+                top: "50%",
+                transform: "translateY(-50%)",
+              }}
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input
+              ref={searchInputRef}
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder={searchPlaceholder}
+              className="form-control form-control-sm ps-4 py-1"
+              style={{
+                fontSize: "13px",
+                borderColor: "#e2e8f0",
+              }}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+
+          <div
+            role="listbox"
+            style={{
+              overflowY: "auto",
+              maxHeight: "220px",
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+            }}
+          >
+            {filteredOptions.length === 0 ? (
+              <div
+                className="text-muted text-center py-3"
+                style={{ fontSize: "13px" }}
+              >
+                Tidak ditemukan
+              </div>
+            ) : (
+              filteredOptions.map((opt) => {
+                const isSelected = opt.id === value;
+                return (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    role="option"
+                    aria-selected={isSelected}
+                    onClick={() => {
+                      onChange(opt.id);
+                      setIsOpen(false);
+                      setSearch("");
+                    }}
+                    className="btn btn-sm text-start py-2 px-3 border-0 rounded-2 d-flex align-items-center justify-content-between"
+                    style={{
+                      fontSize: "13.5px",
+                      background: isSelected
+                        ? "rgba(171, 12, 47, 0.08)"
+                        : "transparent",
+                      color: isSelected ? "#AB0C2F" : "#1e293b",
+                      fontWeight: isSelected ? 600 : 400,
+                      transition: "background 0.15s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isSelected) {
+                        e.currentTarget.style.background =
+                          "rgba(171, 12, 47, 0.04)";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isSelected) {
+                        e.currentTarget.style.background = "transparent";
+                      }
+                    }}
+                  >
+                    <span className="text-truncate">{opt.nama}</span>
+                    {isSelected && (
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#AB0C2F"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="ms-2 flex-shrink-0"
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    )}
+                  </button>
+                );
+              })
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function TracerFormWizard() {
@@ -90,17 +333,17 @@ export default function TracerFormWizard() {
   const [belumKerjaPelatihan, setBelumKerjaPelatihan] = useState('');
   const [belumKerjaStatusAktif, setBelumKerjaStatusAktif] = useState('AKTIF_MELAMAR');
 
-  // Step 5: Evaluasi & Umpan Balik (Skala Likert 1-4)
-  const [evalKompetensiKejuruan, setEvalKompetensiKejuruan] = useState(4);
-  const [evalKomputer, setEvalKomputer] = useState(4);
-  const [evalBahasa, setEvalBahasa] = useState(3);
-  const [evalKomunikasi, setEvalKomunikasi] = useState(4);
-  const [evalEtika, setEvalEtika] = useState(4);
-  const [evalTeam, setEvalTeam] = useState(4);
-  const [evalPkl, setEvalPkl] = useState(4);
-  const [evalSarana, setEvalSarana] = useState(4);
-  const [evalBkk, setEvalBkk] = useState(4);
-  const [evalGuru, setEvalGuru] = useState(4);
+  // Step 5: Evaluasi & Umpan Balik (Skala Likert 1-4, default null agar tidak otomatis terpilih)
+  const [evalKompetensiKejuruan, setEvalKompetensiKejuruan] = useState<number | null>(null);
+  const [evalKomputer, setEvalKomputer] = useState<number | null>(null);
+  const [evalBahasa, setEvalBahasa] = useState<number | null>(null);
+  const [evalKomunikasi, setEvalKomunikasi] = useState<number | null>(null);
+  const [evalEtika, setEvalEtika] = useState<number | null>(null);
+  const [evalTeam, setEvalTeam] = useState<number | null>(null);
+  const [evalPkl, setEvalPkl] = useState<number | null>(null);
+  const [evalSarana, setEvalSarana] = useState<number | null>(null);
+  const [evalBkk, setEvalBkk] = useState<number | null>(null);
+  const [evalGuru, setEvalGuru] = useState<number | null>(null);
 
   const [feedbackTerpakai, setFeedbackTerpakai] = useState('');
   const [feedbackBelumDiajarkan, setFeedbackBelumDiajarkan] = useState('');
@@ -253,6 +496,24 @@ export default function TracerFormWizard() {
     e.preventDefault();
     if (!alumniData) return;
     setAlertError('');
+
+    // Validasi semua aspek likert wajib diisi
+    if (
+      evalKomputer === null ||
+      evalBahasa === null ||
+      evalKomunikasi === null ||
+      evalEtika === null ||
+      evalTeam === null ||
+      evalSarana === null ||
+      evalBkk === null ||
+      evalGuru === null ||
+      (alumniData.sekolah.jenjang === 'SMK' && (evalKompetensiKejuruan === null || evalPkl === null))
+    ) {
+      setAlertError('Harap lengkapi semua aspek penilaian kompetensi & layanan sekolah (pilih nilai 1 - 4 pada setiap baris).');
+      window.scrollTo({ top: 300, behavior: 'smooth' });
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -266,6 +527,7 @@ export default function TracerFormWizard() {
         status_utama: statusUtama,
 
         // Evaluasi Likert
+        evaluasi_keterampilan_komputer: evalKomputer,
         evaluasi_komputer: evalKomputer,
         evaluasi_bahasa_asing: evalBahasa,
         evaluasi_komunikasi: evalKomunikasi,
@@ -353,14 +615,14 @@ export default function TracerFormWizard() {
   };
 
   return (
-    <div className="py-120 grey-bg" style={{ minHeight: '80vh' }}>
+    <div className="pt-20 pb-120 grey-bg" style={{ minHeight: '80vh' }}>
       <div className="container">
         {/* PROGRESS STEPPER HEADER */}
-        <div className="row justify-content-center mb-40">
+        <div className="row justify-content-center mb-40 tracer-stepper-wrap">
           <div className="col-lg-10">
             <div className="bg-white p-4 rounded-4 shadow-sm border">
               <div className="d-flex align-items-center justify-content-between mb-2">
-                <span className="fw-bold text-success" style={{ fontSize: '13px' }}>
+                <span className="fw-bold" style={{ fontSize: '13px', color: '#AB0C2F' }}>
                   LANGKAH {currentStep} DARI 5
                 </span>
                 <span className="text-muted fw-semibold" style={{ fontSize: '13px' }}>
@@ -373,9 +635,9 @@ export default function TracerFormWizard() {
               </div>
               <div className="progress" style={{ height: '8px', background: '#e2e8f0', borderRadius: '4px' }}>
                 <div
-                  className="progress-bar bg-success"
+                  className="progress-bar"
                   role="progressbar"
-                  style={{ width: `${(currentStep / 5) * 100}%`, transition: 'width 0.3s ease' }}
+                  style={{ width: `${(currentStep / 5) * 100}%`, transition: "width 0.3s ease", backgroundColor: "#AB0C2F" }}
                   aria-valuenow={(currentStep / 5) * 100}
                   aria-valuemin={0}
                   aria-valuemax={100}
@@ -400,13 +662,13 @@ export default function TracerFormWizard() {
         {/* WIZARD CARD WRAPPER */}
         <div className="row justify-content-center">
           <div className="col-lg-10">
-            <div className="bg-white p-4 p-md-5 rounded-4 shadow-sm border">
+            <div className="bg-white p-4 p-md-5 rounded-4 shadow-sm border tracer-form-container">
 
               {/* ==================== STEP 1: VERIFIKASI ==================== */}
               {currentStep === 1 && (
                 <div>
                   <div className="border-bottom pb-3 mb-4">
-                    <span className="badge bg-success-subtle text-success px-3 py-1 rounded-pill fw-bold mb-2">
+                    <span className="badge px-3 py-1 rounded-pill fw-bold mb-2" style={{ background: "rgba(171, 12, 47, 0.08)", color: "#AB0C2F", border: "1px solid rgba(171, 12, 47, 0.22)" }}>
                       TAHAP 1: GATEKEEPER
                     </span>
                     <h3 className="fw-bold text-dark mb-1">Pencocokan Data Alumni</h3>
@@ -456,8 +718,7 @@ export default function TracerFormWizard() {
                       <button
                         type="submit"
                         disabled={loading}
-                        className="tp-btn text-white px-5 py-3 rounded-pill shadow-sm"
-                        style={{ background: '#1E856C', fontWeight: 600 }}
+                        className="tracer-btn-next"
                       >
                         {loading ? 'Memeriksa Data…' : 'Verifikasi Data Saya'} <i className="fa-solid fa-arrow-right ms-2"></i>
                       </button>
@@ -470,7 +731,7 @@ export default function TracerFormWizard() {
               {currentStep === 2 && alumniData && (
                 <div>
                   <div className="border-bottom pb-3 mb-4">
-                    <span className="badge bg-success-subtle text-success px-3 py-1 rounded-pill fw-bold mb-2">
+                    <span className="badge px-3 py-1 rounded-pill fw-bold mb-2" style={{ background: "rgba(171, 12, 47, 0.08)", color: "#AB0C2F", border: "1px solid rgba(171, 12, 47, 0.22)" }}>
                       TAHAP 2: KONFIRMASI IDENTITAS &amp; DOMISILI
                     </span>
                     <h3 className="fw-bold text-dark mb-1">Halo, {alumniData.nama_lengkap}!</h3>
@@ -549,36 +810,27 @@ export default function TracerFormWizard() {
                         <label className="form-label fw-semibold text-dark">
                           Domisili Saat Ini (Provinsi) <span className="text-danger">*</span>
                         </label>
-                        <select
-                          className="form-select py-2 fs-6"
+                        <SearchableSelect
+                          options={provinsiList.map((p) => ({ id: p.id, nama: p.nama }))}
                           value={idProvinsi}
-                          onChange={(e) => handleProvinsiChange(Number(e.target.value))}
-                          required
-                        >
-                          {provinsiList.map((p) => (
-                            <option key={p.id} value={p.id}>
-                              {p.kode} - {p.nama}
-                            </option>
-                          ))}
-                        </select>
+                          onChange={(val) => handleProvinsiChange(val)}
+                          placeholder="Pilih Provinsi Domisili"
+                          searchPlaceholder="Cari provinsi..."
+                        />
                       </div>
 
                       <div className="col-md-6">
                         <label className="form-label fw-semibold text-dark">
                           Domisili Saat Ini (Kabupaten / Kota) <span className="text-danger">*</span>
                         </label>
-                        <select
-                          className="form-select py-2 fs-6"
+                        <SearchableSelect
+                          options={kotaList.map((k) => ({ id: k.id, nama: k.nama }))}
                           value={idKota}
-                          onChange={(e) => setIdKota(Number(e.target.value))}
-                          required
-                        >
-                          {kotaList.map((k) => (
-                            <option key={k.id} value={k.id}>
-                              {k.nama}
-                            </option>
-                          ))}
-                        </select>
+                          onChange={(val) => setIdKota(val)}
+                          placeholder="Pilih Kabupaten / Kota"
+                          searchPlaceholder="Cari kabupaten / kota..."
+                          disabled={kotaList.length === 0}
+                        />
                       </div>
 
                       <div className="col-12">
@@ -600,14 +852,13 @@ export default function TracerFormWizard() {
                       <button
                         type="button"
                         onClick={() => setCurrentStep(1)}
-                        className="tp-btn-border px-4 py-2 rounded-pill"
+                        className="tracer-btn-back"
                       >
                         <i className="fa-solid fa-arrow-left me-2"></i> Kembali
                       </button>
                       <button
                         type="submit"
-                        className="tp-btn text-white px-5 py-2 rounded-pill shadow-sm"
-                        style={{ background: '#1E856C', fontWeight: 600 }}
+                        className="tracer-btn-next"
                       >
                         Lanjut ke Status Karier <i className="fa-solid fa-arrow-right ms-2"></i>
                       </button>
@@ -620,7 +871,7 @@ export default function TracerFormWizard() {
               {currentStep === 3 && (
                 <div>
                   <div className="border-bottom pb-3 mb-4">
-                    <span className="badge bg-success-subtle text-success px-3 py-1 rounded-pill fw-bold mb-2">
+                    <span className="badge px-3 py-1 rounded-pill fw-bold mb-2" style={{ background: "rgba(171, 12, 47, 0.08)", color: "#AB0C2F", border: "1px solid rgba(171, 12, 47, 0.22)" }}>
                       TAHAP 3: KONDISI KARIER
                     </span>
                     <h3 className="fw-bold text-dark mb-1">Apa aktivitas utama Anda saat ini?</h3>
@@ -675,8 +926,8 @@ export default function TracerFormWizard() {
                             className="p-3 p-md-4 rounded-4 border d-flex align-items-center gap-3"
                             style={{
                               cursor: 'pointer',
-                              background: isSelected ? 'rgba(30, 133, 108, 0.05)' : '#ffffff',
-                              borderColor: isSelected ? '#1E856C' : '#e2e8f0',
+                              background: isSelected ? 'rgba(171, 12, 47, 0.04)' : '#ffffff',
+                              borderColor: isSelected ? '#AB0C2F' : '#e2e8f0',
                               borderWidth: isSelected ? '2px' : '1px',
                               transition: 'all 0.2s ease',
                             }}
@@ -686,7 +937,7 @@ export default function TracerFormWizard() {
                               style={{
                                 width: '48px',
                                 height: '48px',
-                                background: isSelected ? '#1E856C' : '#f1f5f9',
+                                background: isSelected ? '#AB0C2F' : '#f1f5f9',
                                 color: isSelected ? '#ffffff' : opt.color,
                               }}
                             >
@@ -703,7 +954,7 @@ export default function TracerFormWizard() {
                                 checked={isSelected}
                                 onChange={() => setStatusUtama(opt.key as any)}
                                 className="form-check-input fs-5"
-                                style={{ accentColor: '#1E856C' }}
+                                style={{ accentColor: '#AB0C2F' }}
                               />
                             </div>
                           </div>
@@ -716,15 +967,14 @@ export default function TracerFormWizard() {
                     <button
                       type="button"
                       onClick={() => setCurrentStep(2)}
-                      className="tp-btn-border px-4 py-2 rounded-pill"
+                      className="tracer-btn-back"
                     >
                       <i className="fa-solid fa-arrow-left me-2"></i> Kembali
                     </button>
                     <button
                       type="button"
                       onClick={handleStep3Next}
-                      className="tp-btn text-white px-5 py-2 rounded-pill shadow-sm"
-                      style={{ background: '#1E856C', fontWeight: 600 }}
+                      className="tracer-btn-next"
                     >
                       Lanjut ke Rincian <i className="fa-solid fa-arrow-right ms-2"></i>
                     </button>
@@ -736,7 +986,7 @@ export default function TracerFormWizard() {
               {currentStep === 4 && (
                 <div>
                   <div className="border-bottom pb-3 mb-4">
-                    <span className="badge bg-success-subtle text-success px-3 py-1 rounded-pill fw-bold mb-2">
+                    <span className="badge px-3 py-1 rounded-pill fw-bold mb-2" style={{ background: "rgba(171, 12, 47, 0.08)", color: "#AB0C2F", border: "1px solid rgba(171, 12, 47, 0.22)" }}>
                       TAHAP 4: INSTRUMEN KHUSUS
                     </span>
                     <h3 className="fw-bold text-dark mb-1">Rincian Aktivitas Terkini</h3>
@@ -749,7 +999,7 @@ export default function TracerFormWizard() {
                     {/* 4A: SUB-FORM BEKERJA */}
                     {(statusUtama === 'BEKERJA' || statusUtama === 'BEKERJA_SAMBIL_KULIAH_WIRAUSAHA') && (
                       <div className="mb-4">
-                        <h5 className="fw-bold text-success mb-3">
+                        <h5 className="fw-bold mb-3" style={{ color: "#AB0C2F" }}>
                           <i className="fa-solid fa-building me-2"></i>Informasi Pekerjaan
                         </h5>
                         <div className="row g-3">
@@ -848,7 +1098,7 @@ export default function TracerFormWizard() {
                                     checked={kerjaSaluranInfo.includes(opt)}
                                     onChange={() => toggleSaluranKerja(opt)}
                                     className="form-check-input"
-                                    style={{ accentColor: '#1E856C' }}
+                                    style={{ accentColor: '#AB0C2F' }}
                                   />
                                   <span style={{ fontSize: '13px' }}>{opt}</span>
                                 </label>
@@ -920,7 +1170,7 @@ export default function TracerFormWizard() {
                                   checked={kuliahKeselarasanJurusan === 'SELARAS'}
                                   onChange={() => setKuliahKeselarasanJurusan('SELARAS')}
                                   className="form-check-input"
-                                  style={{ accentColor: '#1E856C' }}
+                                  style={{ accentColor: '#AB0C2F' }}
                                 />
                                 <span>Selaras (Lanjutan bidang yang sama)</span>
                               </label>
@@ -931,7 +1181,7 @@ export default function TracerFormWizard() {
                                   checked={kuliahKeselarasanJurusan === 'TIDAK_SELARAS'}
                                   onChange={() => setKuliahKeselarasanJurusan('TIDAK_SELARAS')}
                                   className="form-check-input"
-                                  style={{ accentColor: '#1E856C' }}
+                                  style={{ accentColor: '#AB0C2F' }}
                                 />
                                 <span>Berbeda bidang / Lintas Jurusan (Linjur)</span>
                               </label>
@@ -1041,7 +1291,7 @@ export default function TracerFormWizard() {
                                     checked={belumKerjaKendala.includes(k)}
                                     onChange={() => toggleKendala(k)}
                                     className="form-check-input"
-                                    style={{ accentColor: '#1E856C' }}
+                                    style={{ accentColor: '#AB0C2F' }}
                                   />
                                   <span style={{ fontSize: '13px' }}>{k}</span>
                                 </label>
@@ -1075,14 +1325,13 @@ export default function TracerFormWizard() {
                       <button
                         type="button"
                         onClick={() => setCurrentStep(3)}
-                        className="tp-btn-border px-4 py-2 rounded-pill"
+                        className="tracer-btn-back"
                       >
                         <i className="fa-solid fa-arrow-left me-2"></i> Kembali
                       </button>
                       <button
                         type="submit"
-                        className="tp-btn text-white px-5 py-2 rounded-pill shadow-sm"
-                        style={{ background: '#1E856C', fontWeight: 600 }}
+                        className="tracer-btn-next"
                       >
                         Lanjut ke Evaluasi <i className="fa-solid fa-arrow-right ms-2"></i>
                       </button>
@@ -1095,7 +1344,7 @@ export default function TracerFormWizard() {
               {currentStep === 5 && alumniData && (
                 <div>
                   <div className="border-bottom pb-3 mb-4">
-                    <span className="badge bg-success-subtle text-success px-3 py-1 rounded-pill fw-bold mb-2">
+                    <span className="badge px-3 py-1 rounded-pill fw-bold mb-2" style={{ background: "rgba(171, 12, 47, 0.08)", color: "#AB0C2F", border: "1px solid rgba(171, 12, 47, 0.22)" }}>
                       TAHAP 5: EVALUASI &amp; SARAN SEKOLAH
                     </span>
                     <h3 className="fw-bold text-dark mb-1">Evaluasi Pembelajaran &amp; Layanan Sekolah</h3>
@@ -1123,8 +1372,8 @@ export default function TracerFormWizard() {
                               <tr>
                                 <td><strong>Kompetensi Kejuruan (Teori &amp; Praktik Bengkel/Lab)</strong></td>
                                 {[1, 2, 3, 4].map((v) => (
-                                  <td key={v} className="text-center">
-                                    <input type="radio" name="evalKompetensi" checked={evalKompetensiKejuruan === v} onChange={() => setEvalKompetensiKejuruan(v)} style={{ accentColor: '#1E856C' }} />
+                                  <td key={v} className="text-center" style={{ cursor: 'pointer' }} onClick={() => setEvalKompetensiKejuruan(v)}>
+                                    <input type="radio" name="evalKompetensi" checked={evalKompetensiKejuruan === v} onChange={() => setEvalKompetensiKejuruan(v)} style={{ accentColor: '#AB0C2F', cursor: 'pointer' }} />
                                   </td>
                                 ))}
                               </tr>
@@ -1132,40 +1381,40 @@ export default function TracerFormWizard() {
                             <tr>
                               <td>Keterampilan Komputer &amp; Literasi Digital</td>
                               {[1, 2, 3, 4].map((v) => (
-                                <td key={v} className="text-center">
-                                  <input type="radio" name="evalKomputer" checked={evalKomputer === v} onChange={() => setEvalKomputer(v)} style={{ accentColor: '#1E856C' }} />
+                                <td key={v} className="text-center" style={{ cursor: 'pointer' }} onClick={() => setEvalKomputer(v)}>
+                                  <input type="radio" name="evalKomputer" checked={evalKomputer === v} onChange={() => setEvalKomputer(v)} style={{ accentColor: '#AB0C2F', cursor: 'pointer' }} />
                                 </td>
                               ))}
                             </tr>
                             <tr>
                               <td>Kemampuan Bahasa Asing (Bahasa Inggris)</td>
                               {[1, 2, 3, 4].map((v) => (
-                                <td key={v} className="text-center">
-                                  <input type="radio" name="evalBahasa" checked={evalBahasa === v} onChange={() => setEvalBahasa(v)} style={{ accentColor: '#1E856C' }} />
+                                <td key={v} className="text-center" style={{ cursor: 'pointer' }} onClick={() => setEvalBahasa(v)}>
+                                  <input type="radio" name="evalBahasa" checked={evalBahasa === v} onChange={() => setEvalBahasa(v)} style={{ accentColor: '#AB0C2F', cursor: 'pointer' }} />
                                 </td>
                               ))}
                             </tr>
                             <tr>
                               <td>Keterampilan Komunikasi &amp; Presentasi (Public Speaking)</td>
                               {[1, 2, 3, 4].map((v) => (
-                                <td key={v} className="text-center">
-                                  <input type="radio" name="evalKomunikasi" checked={evalKomunikasi === v} onChange={() => setEvalKomunikasi(v)} style={{ accentColor: '#1E856C' }} />
+                                <td key={v} className="text-center" style={{ cursor: 'pointer' }} onClick={() => setEvalKomunikasi(v)}>
+                                  <input type="radio" name="evalKomunikasi" checked={evalKomunikasi === v} onChange={() => setEvalKomunikasi(v)} style={{ accentColor: '#AB0C2F', cursor: 'pointer' }} />
                                 </td>
                               ))}
                             </tr>
                             <tr>
                               <td>Etika Kerja, Kedisiplinan, dan Kejujuran</td>
                               {[1, 2, 3, 4].map((v) => (
-                                <td key={v} className="text-center">
-                                  <input type="radio" name="evalEtika" checked={evalEtika === v} onChange={() => setEvalEtika(v)} style={{ accentColor: '#1E856C' }} />
+                                <td key={v} className="text-center" style={{ cursor: 'pointer' }} onClick={() => setEvalEtika(v)}>
+                                  <input type="radio" name="evalEtika" checked={evalEtika === v} onChange={() => setEvalEtika(v)} style={{ accentColor: '#AB0C2F', cursor: 'pointer' }} />
                                 </td>
                               ))}
                             </tr>
                             <tr>
                               <td>Kemampuan Kerja Sama Tim (Teamwork)</td>
                               {[1, 2, 3, 4].map((v) => (
-                                <td key={v} className="text-center">
-                                  <input type="radio" name="evalTeam" checked={evalTeam === v} onChange={() => setEvalTeam(v)} style={{ accentColor: '#1E856C' }} />
+                                <td key={v} className="text-center" style={{ cursor: 'pointer' }} onClick={() => setEvalTeam(v)}>
+                                  <input type="radio" name="evalTeam" checked={evalTeam === v} onChange={() => setEvalTeam(v)} style={{ accentColor: '#AB0C2F', cursor: 'pointer' }} />
                                 </td>
                               ))}
                             </tr>
@@ -1173,8 +1422,8 @@ export default function TracerFormWizard() {
                               <tr>
                                 <td><strong>Pengalaman Praktik Kerja Lapangan (PKL / Magang Industri)</strong></td>
                                 {[1, 2, 3, 4].map((v) => (
-                                  <td key={v} className="text-center">
-                                    <input type="radio" name="evalPkl" checked={evalPkl === v} onChange={() => setEvalPkl(v)} style={{ accentColor: '#1E856C' }} />
+                                  <td key={v} className="text-center" style={{ cursor: 'pointer' }} onClick={() => setEvalPkl(v)}>
+                                    <input type="radio" name="evalPkl" checked={evalPkl === v} onChange={() => setEvalPkl(v)} style={{ accentColor: '#AB0C2F', cursor: 'pointer' }} />
                                   </td>
                                 ))}
                               </tr>
@@ -1182,24 +1431,24 @@ export default function TracerFormWizard() {
                             <tr>
                               <td>Kelayakan Sarana Praktik / Laboratorium Sekolah</td>
                               {[1, 2, 3, 4].map((v) => (
-                                <td key={v} className="text-center">
-                                  <input type="radio" name="evalSarana" checked={evalSarana === v} onChange={() => setEvalSarana(v)} style={{ accentColor: '#1E856C' }} />
+                                <td key={v} className="text-center" style={{ cursor: 'pointer' }} onClick={() => setEvalSarana(v)}>
+                                  <input type="radio" name="evalSarana" checked={evalSarana === v} onChange={() => setEvalSarana(v)} style={{ accentColor: '#AB0C2F', cursor: 'pointer' }} />
                                 </td>
                               ))}
                             </tr>
                             <tr>
                               <td>Efektivitas Peran Bursa Kerja Khusus (BKK) Sekolah</td>
                               {[1, 2, 3, 4].map((v) => (
-                                <td key={v} className="text-center">
-                                  <input type="radio" name="evalBkk" checked={evalBkk === v} onChange={() => setEvalBkk(v)} style={{ accentColor: '#1E856C' }} />
+                                <td key={v} className="text-center" style={{ cursor: 'pointer' }} onClick={() => setEvalBkk(v)}>
+                                  <input type="radio" name="evalBkk" checked={evalBkk === v} onChange={() => setEvalBkk(v)} style={{ accentColor: '#AB0C2F', cursor: 'pointer' }} />
                                 </td>
                               ))}
                             </tr>
                             <tr>
                               <td>Kualitas Pendampingan Guru Pembimbing / Konseling</td>
                               {[1, 2, 3, 4].map((v) => (
-                                <td key={v} className="text-center">
-                                  <input type="radio" name="evalGuru" checked={evalGuru === v} onChange={() => setEvalGuru(v)} style={{ accentColor: '#1E856C' }} />
+                                <td key={v} className="text-center" style={{ cursor: 'pointer' }} onClick={() => setEvalGuru(v)}>
+                                  <input type="radio" name="evalGuru" checked={evalGuru === v} onChange={() => setEvalGuru(v)} style={{ accentColor: '#AB0C2F', cursor: 'pointer' }} />
                                 </td>
                               ))}
                             </tr>
@@ -1254,7 +1503,7 @@ export default function TracerFormWizard() {
                       <button
                         type="button"
                         onClick={() => setCurrentStep(4)}
-                        className="tp-btn-border px-4 py-2 rounded-pill"
+                        className="tracer-btn-back"
                         disabled={loading}
                       >
                         <i className="fa-solid fa-arrow-left me-2"></i> Kembali
@@ -1262,8 +1511,7 @@ export default function TracerFormWizard() {
                       <button
                         type="submit"
                         disabled={loading}
-                        className="tp-btn text-white px-5 py-3 rounded-pill shadow"
-                        style={{ background: '#1E856C', fontWeight: 600 }}
+                        className="tracer-btn-next"
                       >
                         {loading ? 'Menyimpan Kuesioner…' : 'Kirim Kuesioner Final'} <i className="fa-solid fa-check ms-2"></i>
                       </button>
