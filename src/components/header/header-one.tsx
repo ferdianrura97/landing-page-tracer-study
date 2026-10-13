@@ -26,7 +26,7 @@ export default function HeaderOne({ transparent = true }: IProps) {
                 <div className="tp-header-logo-1 tp-header-logo">
                   <Link href="/" className="d-flex align-items-center gap-2 text-decoration-none" style={{ whiteSpace: 'nowrap' }}>
                     <Image
-                      src="/assets/img/logo/logo_kaltim_removebg-preview.png"
+                      src="/assets/img/logo/logo_kaltim.png"
                       alt="Logo Pemprov Kaltim"
                       width={44}
                       height={44}

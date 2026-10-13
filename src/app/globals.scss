@@ -909,3 +909,584 @@
     }
   }
 }
+
+
+// ==========================================
+
+// ==========================================
+// HERO SECTION KALTIM - LIGHT REGIONAL THEME (OPSI B)
+// ==========================================
+.tp-hero-area-kaltim-light {
+  position: relative;
+  background-color: #F6F4EE;
+  background-image: 
+    radial-gradient(circle at 85% 18%, rgba(171, 12, 47, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 15% 75%, rgba(171, 12, 47, 0.04) 0%, transparent 40%),
+    linear-gradient(180deg, #ffffff 0%, #FAF8F4 45%, #F6F4EE 100%);
+  overflow: hidden;
+
+  // Subtle data matrix grid overlay
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(to right, rgba(3, 31, 66, 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(3, 31, 66, 0.035) 1px, transparent 1px);
+    background-size: 36px 36px;
+    mask-image: radial-gradient(circle at center, black 65%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle at center, black 65%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .tp-hero-item {
+    position: relative;
+    z-index: 1;
+    padding-top: 250px;
+    padding-bottom: 200px;
+
+    @media (max-width: 991px) {
+      padding-top: 190px;
+      padding-bottom: 150px;
+    }
+
+    @media (max-width: 767px) {
+      padding-top: 160px;
+      padding-bottom: 120px;
+    }
+  }
+
+  .tp-hero-wrapper {
+    margin-left: 0;
+  }
+
+  .hero-eyebrow-badge {
+    background: rgba(171, 12, 47, 0.08);
+    border: 1px solid rgba(171, 12, 47, 0.22);
+    max-width: 100%;
+    flex-wrap: wrap;
+
+    .hero-eyebrow-tag {
+      background: #ab0c2f;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+    }
+
+    .hero-eyebrow-text {
+      color: #ab0c2f;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+  }
+
+  .tp-hero-title {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #031F42;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    max-width: 680px;
+
+    @media (max-width: 1199px) {
+      font-size: 42px;
+    }
+
+    @media (max-width: 991px) {
+      font-size: 36px;
+    }
+
+    @media (max-width: 767px) {
+      font-size: 28px;
+      line-height: 1.3;
+    }
+  }
+
+  .tp-hero-desc {
+    font-size: 17px;
+    line-height: 1.65;
+    color: #4a5568;
+    max-width: 580px;
+    font-weight: 400;
+    margin-bottom: 35px;
+
+    @media (max-width: 767px) {
+      font-size: 14.5px;
+      line-height: 1.6;
+      margin-bottom: 26px;
+    }
+  }
+
+  .hero-btn-primary {
+    background-color: var(--tp-theme-primary) !important;
+    color: #ffffff !important;
+    border: 1.5px solid var(--tp-theme-primary) !important;
+    border-radius: 50px !important;
+    padding: 12px 30px !important;
+    font-size: 14.5px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 14px rgba(171, 12, 47, 0.28) !important;
+    transition: all 0.25s ease !important;
+
+    &:hover {
+      background-color: #880824 !important;
+      border-color: #880824 !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 18px rgba(136, 8, 36, 0.38) !important;
+    }
+  }
+
+  .hero-btn-secondary-light {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #ab0c2f;
+    border: 1.5px solid #ab0c2f;
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-size: 14.5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.25s ease;
+
+    &:hover {
+      background-color: rgba(171, 12, 47, 0.08);
+      border-color: #880824;
+      color: #880824;
+      transform: translateY(-2px);
+    }
+  }
+
+  .hero-map-card {
+    border: 1px solid rgba(171, 12, 47, 0.16) !important;
+    box-shadow: 0 16px 40px rgba(3, 31, 66, 0.07) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 48px rgba(171, 12, 47, 0.12) !important;
+    }
+  }
+
+  .hero-map-badge {
+    background: rgba(171, 12, 47, 0.08);
+    border: 1px solid rgba(171, 12, 47, 0.2);
+  }
+
+  .hero-pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #ab0c2f;
+    display: inline-block;
+    animation: pulseDot 2s infinite ease-in-out;
+  }
+}
+
+@keyframes pulseDot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
+}
+
+
+
+// ==========================================
+// HEADER TRANSPARENT ON LIGHT HERO - DARK TEXT
+// ==========================================
+.tp-header-transparent {
+  .main-menu nav > ul > li > a {
+    color: #031F42 !important;
+    &:hover {
+      color: var(--tp-theme-primary) !important;
+    }
+  }
+
+  .main-menu nav > ul > li.has-dropdown > a::after {
+    color: #031F42 !important;
+  }
+
+  .tp-header-brand-text {
+    .brand-title {
+      color: #031F42 !important;
+    }
+    .brand-sub {
+      color: var(--tp-theme-primary) !important;
+    }
+  }
+
+  .offcanvas-open-btn {
+    color: #031F42 !important;
+    i {
+      color: #031F42 !important;
+    }
+  }
+}
+
+
+// ==========================================
+// TRACER WIZARD BUTTONS & INPUTS THEME
+// ==========================================
+.tracer-form-container {
+  .form-control:focus,
+  .form-select:focus {
+    border-color: #AB0C2F !important;
+    box-shadow: 0 0 0 0.2rem rgba(171, 12, 47, 0.16) !important;
+  }
+}
+
+.tracer-btn-back {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  background-color: transparent !important;
+  border: 1.5px solid #AB0C2F !important;
+  color: #AB0C2F !important;
+  border-radius: 50px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: 10px 24px !important;
+  line-height: 1.2 !important;
+  cursor: pointer !important;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+  text-decoration: none !important;
+
+  i {
+    color: #AB0C2F !important;
+    transition: transform 0.2s ease !important;
+  }
+
+  &:hover {
+    background-color: rgba(171, 12, 47, 0.08) !important;
+    border-color: #880824 !important;
+    color: #880824 !important;
+    transform: translateY(-1px) !important;
+
+    i {
+      color: #880824 !important;
+      transform: translateX(-3px) !important;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+  }
+}
+
+.tracer-btn-next {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  background-color: #AB0C2F !important;
+  border: 1.5px solid #AB0C2F !important;
+  color: #ffffff !important;
+  border-radius: 50px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: 10px 28px !important;
+  line-height: 1.2 !important;
+  box-shadow: 0 4px 14px rgba(171, 12, 47, 0.25) !important;
+  cursor: pointer !important;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+  text-decoration: none !important;
+
+  i {
+    color: #ffffff !important;
+    transition: transform 0.2s ease !important;
+  }
+
+  &:hover {
+    background-color: #880824 !important;
+    border-color: #880824 !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 18px rgba(136, 8, 36, 0.35) !important;
+    transform: translateY(-2px) !important;
+
+    i {
+      transform: translateX(3px) !important;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.65 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+@keyframes selectFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes alertPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+// ==========================================
+// BRAND LOGO TEXT STYLES (HEADER TRACER STUDY)
+// ==========================================
+.tp-header-brand-text {
+  line-height: 1.15;
+  .brand-title {
+    font-family: var(--tp-ff-heading);
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    transition: color 0.25s ease;
+  }
+  .brand-sub {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.04em;
+    transition: color 0.25s ease;
+  }
+}
+
+.tp-header-solid,
+.tp-header-sticky {
+  .tp-header-brand-text {
+    .brand-title {
+      color: #031F42 !important;
+    }
+    .brand-sub {
+      color: var(--tp-theme-primary) !important;
+    }
+  }
+}
+
+
+// ==========================================
+// HEADER NAVIGATION SINGLE-ROW & NO-DROPDOWN ARROW FIX
+// ==========================================
+.main-menu {
+  nav.tp-main-menu-content > ul {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    > li {
+      margin: 0 12px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      flex-shrink: 0 !important;
+
+      > a {
+        white-space: nowrap !important;
+        font-size: 16px !important;
+      }
+    }
+
+    > li:not(.has-dropdown) > a::after {
+      display: none !important;
+      content: none !important;
+    }
+  }
+}
+
+
+// ==========================================
+// HERO SECTION KALTIM - DATA REGIONAL THEME
+// ==========================================
+.tp-hero-area-kaltim {
+  position: relative;
+  background-color: #02142b;
+  background-image: 
+    radial-gradient(circle at 82% 25%, rgba(171, 12, 47, 0.36) 0%, transparent 48%),
+    radial-gradient(circle at 18% 78%, rgba(2, 44, 91, 0.42) 0%, transparent 50%),
+    linear-gradient(140deg, #02142b 0%, #061f3e 50%, #03152a 100%);
+  overflow: hidden;
+
+  // Subtle data matrix grid overlay
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  // Subtle decorative glowing ring in corner
+  &::after {
+    content: "";
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 480px;
+    height: 480px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .tp-hero-item {
+    position: relative;
+    z-index: 1;
+    padding-top: 260px;
+    padding-bottom: 210px;
+
+    @media (max-width: 991px) {
+      padding-top: 200px;
+      padding-bottom: 160px;
+    }
+
+    @media (max-width: 767px) {
+      padding-top: 170px;
+      padding-bottom: 130px;
+    }
+  }
+
+  .tp-hero-wrapper {
+    margin-left: 0;
+  }
+
+  .hero-eyebrow-badge {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    max-width: 100%;
+    flex-wrap: wrap;
+
+    .hero-eyebrow-tag {
+      background: #ab0c2f;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+    }
+
+    .hero-eyebrow-text {
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+  }
+
+  .tp-hero-title {
+    font-size: 54px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    margin-bottom: 22px;
+    max-width: 960px;
+
+    @media (max-width: 1199px) {
+      font-size: 46px;
+    }
+
+    @media (max-width: 991px) {
+      font-size: 38px;
+    }
+
+    @media (max-width: 767px) {
+      font-size: 30px;
+      line-height: 1.3;
+    }
+  }
+
+  .tp-hero-desc {
+    font-size: 18px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 760px;
+    font-weight: 400;
+    margin-bottom: 36px;
+
+    @media (max-width: 767px) {
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+  }
+
+  .hero-btn-primary {
+    background-color: var(--tp-theme-primary) !important;
+    color: #ffffff !important;
+    border: 1.5px solid var(--tp-theme-primary) !important;
+    border-radius: 50px !important;
+    padding: 13px 32px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 6px 18px rgba(171, 12, 47, 0.32) !important;
+    transition: all 0.25s ease !important;
+
+    &:hover {
+      background-color: #880824 !important;
+      border-color: #880824 !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 8px 22px rgba(136, 8, 36, 0.45) !important;
+    }
+  }
+
+  .hero-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50px;
+    padding: 13px 30px;
+    font-size: 15px;
+    font-weight: 600;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    text-decoration: none;
+    transition: all 0.25s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.16);
+      border-color: #ffffff;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+  }
+}
