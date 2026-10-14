@@ -35,7 +35,7 @@ export default function CtaTracerStudy() {
                     }}
                   >
                     <Image
-                      src="/assets/img/logo/logo-kaltim-transparent.webp"
+                      src="/assets/img/logo/logo_kaltim.png"
                       alt="Logo Pemprov Kalimantan Timur"
                       width={58}
                       height={58}
