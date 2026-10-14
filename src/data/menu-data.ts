@@ -13,21 +13,30 @@ const menu_data: IMenu[] = [
   },
   {
     id: 3,
+    title: "Laporan & Data",
+    link: "/laporan/wilayah",
+    dropdown_menus: [
+      { id: 1, title: "Laporan per Wilayah", link: "/laporan/wilayah" },
+      { id: 2, title: "Laporan per Sekolah", link: "/laporan/sekolah" },
+    ],
+  },
+  {
+    id: 4,
     title: "Event & Agenda",
     link: "/#agenda",
   },
   {
-    id: 4,
+    id: 5,
     title: "Berita",
     link: "/berita",
   },
   {
-    id: 5,
+    id: 6,
     title: "Suara Alumni",
     link: "/#testimoni",
   },
   {
-    id: 6,
+    id: 7,
     title: "Program Prioritas",
     link: "/#program",
     dropdown_menus: [

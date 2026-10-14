@@ -62,7 +62,6 @@ export default function HeroAreaOne() {
               <div className="tp-hero-wrapper wow fadeInUp" data-wow-delay=".2s">
                 {/* Eyebrow Badge */}
                 <div className="d-inline-flex align-items-center mb-20 px-3 py-1 rounded-pill hero-eyebrow-badge">
-                  <span className="badge rounded-pill me-2 hero-eyebrow-tag">RESMI</span>
                   <span className="hero-eyebrow-text">
                     PEMERINTAH PROVINSI KALIMANTAN TIMUR &bull; DISDIKBUD
                   </span>
@@ -86,8 +85,9 @@ export default function HeroAreaOne() {
                       <RightArrow clr="#ffffff" />
                     </span>
                   </Link>
-                  <Link className="hero-btn-secondary-light" href="/#tentang">
-                    Pelajari Alur &amp; Capaian
+                  <Link className="hero-btn-secondary-light" href="/laporan/wilayah">
+                    <i className="fa-solid fa-chart-simple me-2"></i>
+                    Lihat Rekapitulasi Survey
                   </Link>
                 </div>
               </div>

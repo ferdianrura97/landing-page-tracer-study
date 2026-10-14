@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import calling from "@/assets/img/icon/calling.svg";
-import HeaderLanguage from "./header-language";
+// import HeaderLanguage from "./header-language";
 import { fetchApi } from "@/lib/api";
 
 export interface QuickLinkItem {
@@ -88,13 +88,13 @@ export default function HeaderTopArea() {
                   </a>
                 </span>
               </div>
-              <div className="tp-header-info-item">
+              {/* <div className="tp-header-info-item">
                 <div className="header-bottom__lang">
                   <ul>
                     <HeaderLanguage />
                   </ul>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="col-lg-6 col-md-6 d-none d-lg-block">

@@ -17,13 +17,13 @@ export default function HeaderTopAreaTwo() {
                   7500k Followers
                 </span>
               </div>
-              <div className="tp-header-info-item">
+              {/* <div className="tp-header-info-item">
                 <div className="header-bottom__lang">
                   <ul>
                     <HeaderLanguage/>
                   </ul>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="col-md-6">
