@@ -8,7 +8,7 @@ type IProps = {
 };
 
 export default function BlogItem({ blog }: IProps) {
-  const targetUrl = `/berita/${blog.id}`;
+  const targetUrl = `/berita/${blog.slug || blog.id}`;
 
   return (
     <div

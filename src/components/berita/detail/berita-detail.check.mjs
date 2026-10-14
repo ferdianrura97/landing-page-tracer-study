@@ -20,12 +20,18 @@ assert.strictEqual(
 );
 assert.strictEqual(formatKonten(htmlText), '<p>Paragraf resmi HTML</p>');
 
-// 2. Cek format URL share WhatsApp & X
-const id = 1;
+// 2. Cek format URL slug vs id
+const slug = 'disdikbud-kaltim-luncurkan-survei-tracer-study-serentak';
+const targetUrl = `/berita/${slug}`;
+assert.strictEqual(
+  targetUrl,
+  '/berita/disdikbud-kaltim-luncurkan-survei-tracer-study-serentak'
+);
+
 const judul = 'Survei Tracer Study';
-const url = `http://localhost:3000/berita/${id}`;
+const url = `http://localhost:3000${targetUrl}`;
 const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(`${judul} - ${url}`)}`;
 assert.ok(waUrl.includes('Survei%20Tracer%20Study'));
-assert.ok(waUrl.includes('localhost%3A3000%2Fberita%2F1'));
+assert.ok(waUrl.includes('disdikbud-kaltim-luncurkan-survei-tracer-study-serentak'));
 
-console.log('Semua self-check berita detail lulus 100%.');
+console.log('Semua self-check berita detail berbasis slug lulus 100%.');

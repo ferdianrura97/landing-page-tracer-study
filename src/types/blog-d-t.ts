@@ -1,5 +1,6 @@
 export type IBlogDT = {
   id: number;
+  slug?: string;
   img: string;
   tag: string;
   tags?: Array<{ id: number; nama: string; slug: string }>;

@@ -64,6 +64,7 @@ export default function BeritaClient() {
         if (resBerita.sukses && Array.isArray(resBerita.data) && resBerita.data.length > 0) {
           const mapped: IBlogDT[] = resBerita.data.map((item) => ({
             id: item.id,
+            slug: item.slug,
             img: item.gambar || '/assets/img/blog/blog-thumb-1.jpg',
             tag: item.kategori || 'Warta Disdikbud',
             tags: Array.isArray(item.tags) ? item.tags : undefined,

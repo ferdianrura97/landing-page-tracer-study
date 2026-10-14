@@ -12,7 +12,7 @@ export default function BlogListItem({ blog }: IProps) {
     <div className="tp-postbox-item p-relative mb-40">
       <div className="tp-postbox-item-list-box d-flex align-items-center">
         <div className="tp-postbox-item-list-thumb">
-          <Link href={`/blog-details/${blog.id}`}>
+          <Link href={`/berita/${blog.slug || blog.id}`}>
             <Image
               src={blog.img}
               alt={blog.title}
@@ -29,11 +29,11 @@ export default function BlogListItem({ blog }: IProps) {
             <span>{blog.date}</span>
           </div>
           <h3 className="tp-postbox-item-list-title">
-            <Link href={`/blog-details/${blog.id}`}>{blog.title}</Link>
+            <Link href={`/berita/${blog.slug || blog.id}`}>{blog.title}</Link>
           </h3>
           <p>{blog.desc} […]</p>
           <div className="tp-postbox-btn">
-            <Link href={`/blog-details/${blog.id}`}>
+            <Link href={`/berita/${blog.slug || blog.id}`}>
               Read More{" "}
               <span>
                 <RightArrowSeven />

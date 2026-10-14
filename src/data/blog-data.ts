@@ -3,6 +3,7 @@ import { IBlogDT } from "@/types/blog-d-t";
 export const university_blogs: IBlogDT[] = [
   {
     id: 1,
+    slug: "disdikbud-kaltim-luncurkan-survei-tracer-study-serentak",
     img: "/assets/img/blog/blog-thumb-1.jpg",
     tag: "Kebijakan & Evaluasi",
     title: "Disdikbud Kaltim Luncurkan Survei Tracer Study Serentak untuk Lulusan SMA & SMK Se-Kaltim",
@@ -14,6 +15,7 @@ export const university_blogs: IBlogDT[] = [
   },
   {
     id: 2,
+    slug: "peluang-dan-kebutuhan-tenaga-kerja-terampil-vokasi-ikn",
     img: "/assets/img/blog/blog-thumb-2.jpg",
     tag: "Peluang Karir & IKN",
     title: "Peluang dan Kebutuhan Tenaga Kerja Terampil Vokasi Menyambut Pertumbuhan Wilayah IKN",

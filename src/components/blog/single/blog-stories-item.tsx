@@ -7,7 +7,7 @@ type IProps = {
 };
 
 export default function BlogStoriesItem({ blog }: IProps) {
-  const targetUrl = `/berita/${blog.id}`;
+  const targetUrl = `/berita/${blog.slug || blog.id}`;
 
   return (
     <div className="tp-blog-stories-item p-relative mb-50">

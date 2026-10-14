@@ -18,6 +18,7 @@ export default function BlogOne() {
         if (res.sukses && Array.isArray(res.data) && res.data.length > 0) {
           const mapped: IBlogDT[] = res.data.map((item) => ({
             id: item.id,
+            slug: item.slug,
             img: item.gambar || "/assets/img/blog/blog-thumb-1.jpg",
             tag: item.kategori,
             title: item.judul,

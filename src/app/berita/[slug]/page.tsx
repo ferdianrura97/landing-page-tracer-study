@@ -12,15 +12,15 @@ import all_blogs from '@/data/blog-data';
 import { IBlogDT } from '@/types/blog-d-t';
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 };
 
-async function fetchBeritaDetail(id: string): Promise<BeritaDetailData | null> {
+async function fetchBeritaDetail(identifier: string): Promise<BeritaDetailData | null> {
   const apiBase =
     process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
 
   try {
-    const res = await fetch(`${apiBase}/publik/berita/${id}`, {
+    const res = await fetch(`${apiBase}/publik/berita/${encodeURIComponent(identifier)}`, {
       next: { revalidate: 30 },
     });
     if (res.ok) {
@@ -33,11 +33,14 @@ async function fetchBeritaDetail(id: string): Promise<BeritaDetailData | null> {
     // API backend tidak terjangkau, fallback ke mock data
   }
 
-  // Fallback ke data mock lokal
-  const found = all_blogs.find((item) => String(item.id) === String(id));
+  // Fallback ke data mock lokal (cocokkan slug atau ID numerik)
+  const found = all_blogs.find(
+    (item) => item.slug === identifier || String(item.id) === String(identifier)
+  );
   if (found) {
     return {
       id: Number(found.id),
+      slug: found.slug,
       judul: found.title,
       kategori: found.tag || 'Warta Disdikbud',
       penulis: found.author || 'Humas Disdikbud Kaltim',
@@ -53,7 +56,7 @@ async function fetchBeritaDetail(id: string): Promise<BeritaDetailData | null> {
   return null;
 }
 
-async function fetchRelatedNews(currentId: number): Promise<IBlogDT[]> {
+async function fetchRelatedNews(currentId: number, currentSlug?: string): Promise<IBlogDT[]> {
   const apiBase =
     process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
 
@@ -65,11 +68,14 @@ async function fetchRelatedNews(currentId: number): Promise<IBlogDT[]> {
       const json = await res.json();
       if (json.sukses && Array.isArray(json.data)) {
         const filtered = json.data.filter(
-          (item: { id: number }) => Number(item.id) !== Number(currentId)
+          (item: { id: number; slug?: string }) =>
+            Number(item.id) !== Number(currentId) &&
+            (!currentSlug || item.slug !== currentSlug)
         );
         if (filtered.length > 0) {
           return filtered.slice(0, 3).map((item: any) => ({
             id: item.id,
+            slug: item.slug,
             img: item.gambar || '/assets/img/blog/blog-thumb-1.jpg',
             tag: item.kategori || 'Warta Disdikbud',
             title: item.judul,
@@ -81,7 +87,7 @@ async function fetchRelatedNews(currentId: number): Promise<IBlogDT[]> {
               year: 'numeric',
             }),
             desc: item.ringkasan,
-            link: `/berita/${item.id}`,
+            link: item.link_eksternal || undefined,
           }));
         }
       }
@@ -91,17 +97,21 @@ async function fetchRelatedNews(currentId: number): Promise<IBlogDT[]> {
   }
 
   return all_blogs
-    .filter((b) => Number(b.id) !== Number(currentId))
+    .filter(
+      (b) =>
+        Number(b.id) !== Number(currentId) &&
+        (!currentSlug || b.slug !== currentSlug)
+    )
     .slice(0, 3)
     .map((b) => ({
       ...b,
-      link: `/berita/${b.id}`,
+      link: `/berita/${b.slug || b.id}`,
     }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
-  const berita = await fetchBeritaDetail(resolvedParams.id);
+  const berita = await fetchBeritaDetail(resolvedParams.slug);
 
   if (!berita) {
     return {
@@ -125,13 +135,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BeritaDetailPage({ params }: Props) {
   const resolvedParams = await params;
-  const berita = await fetchBeritaDetail(resolvedParams.id);
+  const berita = await fetchBeritaDetail(resolvedParams.slug);
 
   if (!berita) {
     notFound();
   }
 
-  const related = await fetchRelatedNews(berita.id);
+  const related = await fetchRelatedNews(berita.id, berita.slug);
 
   return (
     <MainProvider>

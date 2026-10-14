@@ -99,7 +99,7 @@ export default function BeritaSidebar({
         <div className="tp-sidebar-widget mb-50">
           <h5 className="tp-sidebar-widget-title">Berita Terbaru</h5>
           {recentPosts.slice(0, 3).map((blog) => {
-            const url = `/berita/${blog.id}`;
+            const url = `/berita/${blog.slug || blog.id}`;
             const isExternal = url.startsWith('http');
             return (
               <div key={blog.id} className="tp-recent-post-content">
