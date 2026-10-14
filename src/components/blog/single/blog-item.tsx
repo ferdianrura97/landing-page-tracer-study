@@ -21,29 +21,34 @@ export default function BlogItem({ blog }: IProps) {
       }}
     >
       <div
-        className="tp-blog-thumb fix"
+        className="tp-blog-thumb fix img-blur-frame"
         style={{
           height: "230px",
           width: "100%",
-          overflow: "hidden",
           borderRadius: "12px",
           marginBottom: "24px",
-          backgroundColor: "#f0f2f5",
           flexShrink: 0,
         }}
       >
-        <Link href={targetUrl} style={{ display: "block", width: "100%", height: "100%" }}>
+        <Link href={targetUrl} style={{ display: "block", width: "100%", height: "100%", position: "relative" }}>
+          {/* Lapis 1: Background Blur */}
+          <Image
+            src={blog.img}
+            alt=""
+            aria-hidden="true"
+            fill
+            sizes="350px"
+            className="img-blur-bg"
+            unoptimized={typeof blog.img === "string" && blog.img.startsWith("http")}
+          />
+          {/* Lapis 2: Gambar Asli Utuh */}
           <Image
             src={blog.img}
             alt={blog.title}
-            width={559}
-            height={350}
+            fill
+            sizes="350px"
+            className="img-blur-main"
             unoptimized={typeof blog.img === "string" && blog.img.startsWith("http")}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
           />
         </Link>
       </div>

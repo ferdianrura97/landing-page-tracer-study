@@ -35,3 +35,30 @@ assert.ok(waUrl.includes('Survei%20Tracer%20Study'));
 assert.ok(waUrl.includes('disdikbud-kaltim-luncurkan-survei-tracer-study-serentak'));
 
 console.log('Semua self-check berita detail berbasis slug lulus 100%.');
+
+// 3. Cek keberadaan styling img-blur-frame di globals.scss
+import fs from 'node:fs';
+const scss = fs.readFileSync('src/app/globals.scss', 'utf8');
+assert.ok(scss.includes('.img-blur-frame'));
+assert.ok(scss.includes('.img-blur-bg'));
+assert.ok(scss.includes('.img-blur-main'));
+assert.ok(scss.includes('object-fit: contain !important'));
+console.log('Semua self-check image blur frame lulus 100%.');
+
+// 4. Cek penerapan img-blur-frame pada instagram-area, program-slider, hover-img-item
+const igFile = fs.readFileSync('src/components/instagram/instagram-area.tsx', 'utf8');
+assert.ok(igFile.includes('img-blur-frame'));
+assert.ok(igFile.includes('img-blur-bg'));
+assert.ok(igFile.includes('img-blur-main'));
+
+const programFile = fs.readFileSync('src/components/program/slider/program-slider.tsx', 'utf8');
+assert.ok(programFile.includes('img-blur-frame'));
+assert.ok(programFile.includes('img-blur-bg'));
+assert.ok(programFile.includes('img-blur-main'));
+
+const eventFile = fs.readFileSync('src/components/event/hover-img-item.tsx', 'utf8');
+assert.ok(eventFile.includes('img-blur-frame'));
+assert.ok(eventFile.includes('img-blur-bg'));
+assert.ok(eventFile.includes('img-blur-main'));
+
+console.log('Semua self-check gallery, event, program blur frame lulus 100%.');

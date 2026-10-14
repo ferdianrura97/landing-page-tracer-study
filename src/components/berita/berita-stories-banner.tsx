@@ -78,28 +78,48 @@ export default function BeritaStoriesBanner({
           {featured && (
             <div className="col-lg-12">
               <div className="tp-blog-stories-banner-wrap p-relative">
-                <div className="tp-blog-stories-banner-thumb p-relative">
+                <div className="tp-blog-stories-banner-thumb p-relative img-blur-frame" style={{ height: '420px', width: '100%', position: 'relative' }}>
                   {isExternal ? (
-                    <a href={featuredUrl} target="_blank" rel="noopener noreferrer">
+                    <a href={featuredUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'block', width: '100%', height: '100%', position: 'relative' }}>
+                      <Image
+                        src={featured.img}
+                        alt=""
+                        aria-hidden="true"
+                        fill
+                        sizes="1200px"
+                        className="img-blur-bg"
+                        unoptimized={typeof featured.img === 'string' && featured.img.startsWith('http')}
+                        priority
+                      />
                       <Image
                         src={featured.img}
                         alt={featured.title}
-                        width={1200}
-                        height={480}
+                        fill
+                        sizes="1200px"
+                        className="img-blur-main"
                         unoptimized={typeof featured.img === 'string' && featured.img.startsWith('http')}
-                        style={{ height: '420px', width: '100%', objectFit: 'cover' }}
                         priority
                       />
                     </a>
                   ) : (
-                    <Link href={featuredUrl}>
+                    <Link href={featuredUrl} style={{ display: 'block', width: '100%', height: '100%', position: 'relative' }}>
+                      <Image
+                        src={featured.img}
+                        alt=""
+                        aria-hidden="true"
+                        fill
+                        sizes="1200px"
+                        className="img-blur-bg"
+                        unoptimized={typeof featured.img === 'string' && featured.img.startsWith('http')}
+                        priority
+                      />
                       <Image
                         src={featured.img}
                         alt={featured.title}
-                        width={1200}
-                        height={480}
+                        fill
+                        sizes="1200px"
+                        className="img-blur-main"
                         unoptimized={typeof featured.img === 'string' && featured.img.startsWith('http')}
-                        style={{ height: '420px', width: '100%', objectFit: 'cover' }}
                         priority
                       />
                     </Link>

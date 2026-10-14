@@ -81,35 +81,52 @@ export default function ProgramSlider() {
               className="tp-program-item grey-bg mb-50"
             >
               <div
-                className="tp-program-thumb fix"
+                className="tp-program-thumb fix img-blur-frame"
                 style={{
                   height: "200px",
                   width: "100%",
-                  overflow: "hidden",
                   borderRadius: "10px",
-                  backgroundColor: "#e2e8f0",
+                  position: "relative",
                 }}
               >
                 {isExternal ? (
-                  <a href={targetUrl} target="_blank" rel="noopener noreferrer" style={{ display: "block", width: "100%", height: "100%" }}>
+                  <a href={targetUrl} target="_blank" rel="noopener noreferrer" style={{ display: "block", width: "100%", height: "100%", position: "relative" }}>
+                    <Image
+                      src={item.img}
+                      alt=""
+                      aria-hidden="true"
+                      fill
+                      sizes="350px"
+                      className="img-blur-bg"
+                      unoptimized={typeof item.img === "string" && item.img.startsWith("http")}
+                    />
                     <Image
                       src={item.img}
                       alt={item.title}
-                      width={350}
-                      height={200}
+                      fill
+                      sizes="350px"
+                      className="img-blur-main"
                       unoptimized={typeof item.img === "string" && item.img.startsWith("http")}
-                      style={{ height: "100%", width: "100%", objectFit: "cover" }}
                     />
                   </a>
                 ) : (
-                  <Link href={targetUrl} style={{ display: "block", width: "100%", height: "100%" }}>
+                  <Link href={targetUrl} style={{ display: "block", width: "100%", height: "100%", position: "relative" }}>
+                    <Image
+                      src={item.img}
+                      alt=""
+                      aria-hidden="true"
+                      fill
+                      sizes="350px"
+                      className="img-blur-bg"
+                      unoptimized={typeof item.img === "string" && item.img.startsWith("http")}
+                    />
                     <Image
                       src={item.img}
                       alt={item.title}
-                      width={350}
-                      height={200}
+                      fill
+                      sizes="350px"
+                      className="img-blur-main"
                       unoptimized={typeof item.img === "string" && item.img.startsWith("http")}
-                      style={{ height: "100%", width: "100%", objectFit: "cover" }}
                     />
                   </Link>
                 )}

@@ -11,15 +11,34 @@ export default function BlogStoriesItem({ blog }: IProps) {
 
   return (
     <div className="tp-blog-stories-item p-relative mb-50">
-      <div className="tp-blog-stories-thumb">
-        <Link href={targetUrl}>
+      <div
+        className="tp-blog-stories-thumb img-blur-frame"
+        style={{
+          height: "220px",
+          width: "100%",
+          borderRadius: "10px",
+          position: "relative",
+        }}
+      >
+        <Link href={targetUrl} style={{ display: "block", width: "100%", height: "100%", position: "relative" }}>
+          {/* Lapis 1: Background Blur */}
           <Image
             src={blog.img}
-            width={384}
-            height={220}
-            alt={blog.title}
+            alt=""
+            aria-hidden="true"
+            fill
+            sizes="384px"
+            className="img-blur-bg"
             unoptimized={typeof blog.img === "string" && blog.img.startsWith("http")}
-            style={{ objectFit: "cover", height: "220px", width: "100%" }}
+          />
+          {/* Lapis 2: Gambar Asli Utuh */}
+          <Image
+            src={blog.img}
+            alt={blog.title}
+            fill
+            sizes="384px"
+            className="img-blur-main"
+            unoptimized={typeof blog.img === "string" && blog.img.startsWith("http")}
           />
         </Link>
       </div>

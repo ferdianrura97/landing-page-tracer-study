@@ -275,35 +275,48 @@ export default function BeritaDetailView({ berita, related }: Props) {
           <div className="row g-0">
             <div className="col-lg-12">
               <div
-                className="tp-blog-full-width-thumb p-relative banner-zoom-wrapper"
+                className="tp-blog-full-width-thumb p-relative banner-zoom-wrapper img-blur-frame"
                 style={{
                   backgroundColor: '#031F42',
+                  height: '520px',
                   maxHeight: '580px',
                   overflow: 'hidden',
                   cursor: 'pointer',
+                  position: 'relative',
                 }}
                 onClick={() => setIsZoomOpen(true)}
               >
+                {/* Lapis 1: Background Blur Otomatis */}
                 <Image
                   src={berita.gambar || '/assets/img/blog/deatils/blog-full-width-bg.jpg'}
-                  alt={berita.judul}
-                  width={1920}
-                  height={680}
+                  alt=""
+                  aria-hidden="true"
+                  fill
+                  sizes="100vw"
+                  className="img-blur-bg"
                   unoptimized={
                     typeof berita.gambar === 'string' &&
                     berita.gambar.startsWith('http')
                   }
-                  style={{
-                    width: '100%',
-                    height: '520px',
-                    objectFit: 'cover',
-                    transition: 'transform 0.4s ease',
-                  }}
+                  priority
+                />
+
+                {/* Lapis 2: Gambar Asli Utuh */}
+                <Image
+                  src={berita.gambar || '/assets/img/blog/deatils/blog-full-width-bg.jpg'}
+                  alt={berita.judul}
+                  fill
+                  sizes="100vw"
+                  className="img-blur-main"
+                  unoptimized={
+                    typeof berita.gambar === 'string' &&
+                    berita.gambar.startsWith('http')
+                  }
                   priority
                 />
 
                 {/* Overlay & Centered Zoom Button */}
-                <div className="banner-zoom-overlay">
+                <div className="banner-zoom-overlay" style={{ zIndex: 3 }}>
                   <button
                     type="button"
                     className="banner-zoom-btn"

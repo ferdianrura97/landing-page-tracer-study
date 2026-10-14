@@ -19,14 +19,22 @@ export default function EventAreaFour() {
           {currentItems.map((item) => (
             <div key={item.id} className="col-lg-4 col-md-6">
               <div className="tp-event-inner-item mb-30">
-                <div className="tp-event-inner-thumb">
-                  <Link href={`/event-details/${item.id}`}>
+                <div className="tp-event-inner-thumb img-blur-frame" style={{ height: "240px", width: "100%", borderRadius: "10px", position: "relative" }}>
+                  <Link href={`/event-details/${item.id}`} style={{ display: "block", width: "100%", height: "100%", position: "relative" }}>
+                    <Image
+                      src={item.image}
+                      alt=""
+                      aria-hidden="true"
+                      fill
+                      sizes="384px"
+                      className="img-blur-bg"
+                    />
                     <Image
                       src={item.image}
                       alt={item.title}
-                      width={384}
-                      height={240}
-                      style={{ height: "auto" }}
+                      fill
+                      sizes="384px"
+                      className="img-blur-main"
                     />
                   </Link>
                 </div>

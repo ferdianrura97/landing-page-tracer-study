@@ -142,11 +142,24 @@ export default function InstagramArea() {
                 onClick={() => setActiveImage(data)}
                 style={{ cursor: "pointer" }}
               >
-                <div className="tp-gallery-img-wrap">
+                <div className="tp-gallery-img-wrap img-blur-frame" style={{ width: "100%", height: "100%", position: "relative" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={data.gambar}
+                    alt=""
+                    aria-hidden="true"
+                    className="img-blur-bg"
+                    onError={(e) => {
+                      const el = e.currentTarget;
+                      el.onerror = null;
+                      el.src = "/assets/img/instagram/instagram-thumb-1.jpg";
+                    }}
+                  />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={data.gambar}
                     alt={data.judul || "Dokumentasi Kegiatan"}
+                    className="img-blur-main"
                     onError={(e) => {
                       const el = e.currentTarget;
                       el.onerror = null;
