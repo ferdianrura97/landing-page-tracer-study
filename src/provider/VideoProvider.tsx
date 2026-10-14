@@ -20,9 +20,15 @@ export const VideoProvider = ({ children }: { children: ReactNode }) => {
   const [videoUrl, setVideoUrl] = useState("");
 
   const playVideo = useCallback((videoId: string, platform: "youtube" | "vimeo" = "youtube") => {
+    let cleanId = videoId.trim();
+    if (cleanId.includes("watch?v=")) {
+      cleanId = cleanId.split("watch?v=")[1]?.split("&")[0] || cleanId;
+    } else if (cleanId.includes("youtu.be/")) {
+      cleanId = cleanId.split("youtu.be/")[1]?.split("?")[0] || cleanId;
+    }
     const url = platform === "youtube"
-      ? `https://www.youtube.com/embed/${videoId}?autoplay=1`
-      : `https://player.vimeo.com/video/${videoId}?autoplay=1`;
+      ? `https://www.youtube.com/embed/${cleanId}?autoplay=1`
+      : `https://player.vimeo.com/video/${cleanId}?autoplay=1`;
     setVideoUrl(url);
     setIsVideoOpen(true);
   }, []);

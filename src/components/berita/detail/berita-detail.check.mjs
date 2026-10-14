@@ -62,3 +62,8 @@ assert.ok(eventFile.includes('img-blur-bg'));
 assert.ok(eventFile.includes('img-blur-main'));
 
 console.log('Semua self-check gallery, event, program blur frame lulus 100%.');
+
+// 5. Cek ID video Youtube pada testimonial-one
+const testFile = fs.readFileSync('src/components/testimonial/testimonial-one.tsx', 'utf8');
+assert.ok(testFile.includes('playVideo("uZ7I0kScJY8")'));
+console.log('Semua self-check video id uZ7I0kScJY8 lulus 100%.');
