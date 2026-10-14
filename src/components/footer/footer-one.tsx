@@ -2,10 +2,8 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Email } from "../svg";
+import { Email, LocationFive } from "../svg";
 import FooterSocial from "./footer-social";
-import logo from "@/assets/img/logo/logo-red.png";
-import logo_black from "@/assets/img/logo/logo-black-2.png";
 import { fetchApi } from "@/lib/api";
 
 type IProps = {
@@ -35,11 +33,11 @@ export default function FooterOne({ style_2 = false }: IProps) {
     footer_alamat: "Jl. Basuki Rahmat No. 5, Pelabuhan, Kec. Samarinda Kota, Kota Samarinda, Kalimantan Timur 75112",
     footer_copyright: "© 2026 Pemerintah Provinsi Kalimantan Timur. Hak Cipta Dilindungi Undang-Undang.",
     quick_links: [
-      { label: "SCHOOL", url: "#", target_blank: false },
-      { label: "DISDIK KALTIM", url: "https://web.disdikbud.kaltimprov.go.id/", target_blank: true },
-      { label: "KUESIONER", url: "/tracer", target_blank: false },
-      { label: "LAPOR", url: "https://www.lapor.go.id/", target_blank: true },
-      { label: "SOSMED", url: "https://www.instagram.com/disdikbudkaltim/", target_blank: true },
+      { label: "Kuesioner Tracer Study", url: "/tracer", target_blank: false },
+      { label: "Laporan per Wilayah", url: "/laporan/wilayah", target_blank: false },
+      { label: "Laporan per Sekolah", url: "/laporan/sekolah", target_blank: false },
+      { label: "Disdikbud Kaltim", url: "https://web.disdikbud.kaltimprov.go.id/", target_blank: true },
+      { label: "Lapor! SP4N", url: "https://www.lapor.go.id/", target_blank: true },
     ],
   });
 
@@ -68,17 +66,41 @@ export default function FooterOne({ style_2 = false }: IProps) {
       <div className={`tp-footer-main ${style_2 ? '' : 'grey-bg'} pt-80 pb-55`}>
         <div className="container">
           <div className="row">
-            {/* Kolom 1: Profil Lembaga & Kontak (Ukuran Diperpanjang: col-xl-5 col-lg-5 col-md-6) */}
+            {/* Kolom 1: Profil Lembaga & Kontak (col-xl-5 col-lg-5 col-md-6) */}
             <div className="col-xl-5 col-lg-5 col-md-6 mb-30">
               <div className={`tp-footer-widget ${style_2 ? 'tp-footer-5-col-1' : 'tp-footer-col-1'}`}>
-                <div className="tp-footer-widget-logo mb-20 tp-header-logo">
-                  <Link href="/">
+                {/* Logo Resmi Tracer Study Disdikbud Kaltim */}
+                <div className="tp-footer-widget-logo mb-25">
+                  <Link href="/" className="d-flex align-items-center gap-3 text-decoration-none" style={{ whiteSpace: 'nowrap' }}>
                     <Image 
-                      src={style_2 ? logo_black : logo} 
-                      alt="logo" 
-                      priority 
-                      style={{ height: "auto" }} 
+                      src="/assets/img/logo/logo_kaltim.png"
+                      alt="Logo Pemprov Kaltim" 
+                      width={48}
+                      height={48}
+                      style={{ objectFit: 'contain' }}
+                      priority
                     />
+                    <div className="d-flex flex-column text-start">
+                      <span style={{
+                        fontFamily: 'var(--tp-ff-heading)',
+                        fontSize: '18px',
+                        fontWeight: 800,
+                        letterSpacing: '0.02em',
+                        color: style_2 ? '#ffffff' : '#031F42',
+                        lineHeight: 1.15
+                      }}>
+                        TRACER STUDY
+                      </span>
+                      <span style={{
+                        fontSize: '12px',
+                        fontWeight: 600,
+                        color: style_2 ? 'rgba(255, 255, 255, 0.85)' : 'var(--tp-theme-primary)',
+                        letterSpacing: '0.04em',
+                        lineHeight: 1.15
+                      }}>
+                        Disdikbud Kaltim
+                      </span>
+                    </div>
                   </Link>
                 </div>
                 <div className="tp-footer-widget-content mb-20">
@@ -103,7 +125,7 @@ export default function FooterOne({ style_2 = false }: IProps) {
               </div>
             </div>
 
-            {/* Kolom 2: Quick Links Dinamis (Membaca Array quick_links dari Database: col-xl-3 col-lg-3 col-md-6) */}
+            {/* Kolom 2: Quick Links (col-xl-3 col-lg-3 col-md-6) */}
             <div className="col-xl-3 col-lg-3 col-md-6 mb-30">
               <div className={`tp-footer-widget ${style_2 ? 'tp-footer-5-col-2' : 'tp-footer-col-2'}`}>
                 <h4 className="tp-footer-widget-title mb-20">Quick links</h4>
@@ -128,25 +150,22 @@ export default function FooterOne({ style_2 = false }: IProps) {
               </div>
             </div>
 
-            {/* Kolom 3: Newsletter & Media Sosial (col-xl-4 col-lg-4 col-md-12) */}
+            {/* Kolom 3: Kantor Pelayanan & Media Sosial (col-xl-4 col-lg-4 col-md-12) */}
             <div className="col-xl-4 col-lg-4 col-md-12 mb-30">
-              <div className={`p-footer-widget ${style_2 ? 'tp-footer-5-col-4' : 'tp-footer-col-4'}`}>
-                <h4 className="tp-footer-widget-title mb-20">Our Newsletter</h4>
+              <div className={`tp-footer-widget ${style_2 ? 'tp-footer-5-col-4' : 'tp-footer-col-4'}`}>
+                <h4 className="tp-footer-widget-title mb-20">Kantor Pelayanan</h4>
+                <div className="tp-footer-widget-content mb-25">
+                  <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', color: '#636b78', fontSize: '14px', lineHeight: 1.6 }}>
+                    <span style={{ color: 'var(--tp-theme-primary)', flexShrink: 0, marginTop: '2px' }}>
+                      <LocationFive />
+                    </span>
+                    <span>{settings.footer_alamat}</span>
+                  </div>
+                </div>
                 <div className="tp-footer-newsletter-wrap">
-                  <p>
-                    Dapatkan pembaruan rilis data tracer study dan info lowongan kerja Disdikbud Kaltim.
-                  </p>
-                  <form onSubmit={(e) => e.preventDefault()}>
-                    <div className="tp-footer-newsletter-wrapper mb-30">
-                      <div className={`tp-footer-newsletter-input ${style_2 ? 'tp-footer-5-newsletter-input' : ''}`}>
-                        <input type="email" placeholder="Masukkan email Anda…" />
-                      </div>
-                      <div className={`${style_2 ? 'tp-footer-5-newsletter-submit' : 'tp-footer-newsletter-submit'}`}>
-                        <button type="submit" className={`${style_2 ? 'tp-btn-4' : 'tp-btn'}`}>Subscribe</button>
-                      </div>
-                    </div>
-                  </form>
-                  {/* Footer Social Icons */}
+                  <span style={{ fontSize: '13px', fontWeight: 600, color: '#031F42', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '12px' }}>
+                    Kanal Media Sosial
+                  </span>
                   <div className="tp-footer-newsletter-social">
                     <FooterSocial />
                   </div>
